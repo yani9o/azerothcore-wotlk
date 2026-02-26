@@ -5368,8 +5368,8 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
             for (SkillLineAbilityEntry const* pAbility : GetSkillLineAbilitiesBySkillLine(id))
                 removeSpell(sSpellMgr->GetFirstSpellInChain(pAbility->Spell), SPEC_MASK_ALL, false);
 			
-			// Custom-Hook for OnPlayerSkillChange Event
-			sScriptMgr->OnPlayerSkillChange(this,id);
+			// Custom-Hook for OnPlayerLearnedSkillsChange Event
+			sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
         }
     }
     else if (newVal)                                        //add
@@ -5418,8 +5418,8 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_REACH_SKILL_LEVEL, id);
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LEARN_SKILL_LEVEL, id);
 				
-				// Custom-Hook for OnPlayerSkillChange Event
-				sScriptMgr->OnPlayerSkillChange(this,id);
+				// Custom-Hook for OnPlayerLearnedSkillsChange Event
+				sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
             
                 return;
             }
