@@ -542,7 +542,7 @@ public:
      * @param player Contains information about the Player sender
      * @param skill Contains information about the skill line
      */
-    virtual void OnPlayerSkillChange(Player* /*player*/, uint32 /*skill_id*/) { }
+    virtual void OnPlayerLearnedSkillsChange(Player* /*player*/, uint32 /*skill_id*/) { }
 
     [[nodiscard]] virtual bool OnPlayerCanAreaExploreAndOutdoor(Player* /*player*/) { return true; }
 
