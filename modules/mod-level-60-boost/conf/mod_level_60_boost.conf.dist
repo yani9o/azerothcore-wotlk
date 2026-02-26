@@ -1,0 +1,67 @@
+[worldserver]
+
+########################################
+# Level 15 Boost
+########################################
+#
+#    LevelBoost.Enable
+#        Description: Toggles the Level 15 Boost feature. When enabled, players can receive an automatic boost to level 15 at their race's starting quest giver.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+LevelBoost.Enable = 1
+
+#
+#    LearnSpells.Enable
+#        Description: Allows the boosted character to automatically learn spells appropriate for their class and level when the boost is applied.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+LearnSpells.Enable = 1
+
+#
+#    LearnProficiencies.Enable
+#        Description: Grants the character class-specific weapon and armor proficiencies when they receive the level boost.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+LearnProficiencies.Enable = 1
+
+#
+#    LearnTalents.Enable
+#        Description: Automatically assigns talent points to the character in a pre-determined spec or build suitable for their class when boosted.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+LearnTalents.Enable = 0
+
+#
+#    LearnGlyphs.Enable
+#        Description: Equips the character with glyphs that enhance their abilities, chosen based on their class and spec when the boost is applied.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+LearnGlyphs.Enable = 0
+
+#
+#    DualSpec.Enable
+#        Description: Gives the character the ability to use Dual Specialization, allowing them to switch between two different talent specs.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+DualSpec.Enable = 1
+
+#
+#    DestroyGear.Enable
+#        Description: Removes starting gear from the character when the level boost is applied to make room for the new gear set.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+DestroyGear.Enable = 1
