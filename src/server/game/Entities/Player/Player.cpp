@@ -5367,6 +5367,9 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
             // remove all spells that related to this skill
             for (SkillLineAbilityEntry const* pAbility : GetSkillLineAbilitiesBySkillLine(id))
                 removeSpell(sSpellMgr->GetFirstSpellInChain(pAbility->Spell), SPEC_MASK_ALL, false);
+			
+			// Custom-Hook for OnPlayerSkillChange Event
+			sScriptMgr->OnPlayerSkillChange(this,id);
         }
     }
     else if (newVal)                                        //add
@@ -5414,6 +5417,10 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
                 learnSkillRewardedSpells(id, newVal);
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_REACH_SKILL_LEVEL, id);
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LEARN_SKILL_LEVEL, id);
+				
+				// Custom-Hook for OnPlayerSkillChange Event
+				sScriptMgr->OnPlayerSkillChange(this,id);
+            
                 return;
             }
     }
