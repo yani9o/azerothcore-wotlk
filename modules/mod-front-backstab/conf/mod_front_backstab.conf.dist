@@ -1,0 +1,42 @@
+###################################################################################################
+# Front Backstab Module
+# Enables Backstab-like skills to be cast from any side (with optional damage reduction)
+# Damage = DamageFromBehind / Factor
+# Factor = 1.0 → full damage, >1 → reduced damage, 0 → forbidden from front
+###################################################################################################
+
+# Enable the module
+FrontBackstab.Enable = true
+
+# ---------------------------------------------------------
+# ROGUE SPELLS
+# ---------------------------------------------------------
+
+# Backstab
+FrontBackstab.Backstab = true
+FrontBackstab.BackstabIDs = 53,2589,2590,2591,8721,11279,11280,11281,25300,26863,48656,48657
+FrontBackstab.BackstabFactor = 1.5
+
+# Ambush
+FrontBackstab.Ambush = true
+FrontBackstab.AmbushIDs = 8676,8724,8725,11267,11268,11269,27441,48689,48690,48691
+FrontBackstab.AmbushFactor = 1.5
+
+# Garrote
+FrontBackstab.Garrote = true
+FrontBackstab.GarroteIDs = 703,8631,8632,8633,11289,11290,26839,26884,48675,48676
+FrontBackstab.GarroteFactor = 1
+
+# ---------------------------------------------------------
+# DRUID SPELLS
+# ---------------------------------------------------------
+
+# Shred
+FrontBackstab.Shred = true
+FrontBackstab.ShredIDs = 5221,6800,8992,9829,9830,27001,27002,48571,48572
+FrontBackstab.ShredFactor = 1.5
+
+# Ravage
+FrontBackstab.Ravage = true
+FrontBackstab.RavageIDs = 6785,6787,9866,9867,27005,48578,48579
+FrontBackstab.RavageFactor = 1.5
