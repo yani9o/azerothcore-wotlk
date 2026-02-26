@@ -1285,6 +1285,9 @@ uint32 Unit::DealDamage(Unit* attacker, Unit* victim, uint32 damage, CleanDamage
     }
 
     LOG_DEBUG("entities.unit", "DealDamageEnd returned {} damage", damage);
+    	
+	// Custom-Hook for AfterDamage Event
+	sScriptMgr->AfterDamage(attacker, victim, damage);
 
     return damage;
 }
@@ -7987,6 +7990,9 @@ int32 Unit::DealHeal(Unit* healer, Unit* victim, uint32 addhealth)
         //player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_TOTAL_HEALING_RECEIVED, gain); // pussywizard: optimization
         //player->UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_HIGHEST_HEALING_RECEIVED, addhealth); // pussywizard: optimization
     }*/
+    
+    // Custom-Hook for AfterHeal Event
+    sScriptMgr->AfterHeal(healer, victim, (uint32&)gain);
 
     return gain;
 }
