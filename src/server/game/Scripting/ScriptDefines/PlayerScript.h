@@ -140,6 +140,7 @@ enum PlayerHook
     PLAYERHOOK_ON_UPDATE_GATHERING_SKILL,
     PLAYERHOOK_ON_UPDATE_CRAFTING_SKILL,
     PLAYERHOOK_ON_UPDATE_FISHING_SKILL,
+    PLAYERHOOK_ON_SKILL_CHANGE,
     PLAYERHOOK_CAN_AREA_EXPLORE_AND_OUTDOOR,
     PLAYERHOOK_ON_VICTIM_REWARD_BEFORE,
     PLAYERHOOK_ON_VICTIM_REWARD_AFTER,
@@ -534,6 +535,14 @@ public:
     virtual void OnPlayerUpdateCraftingSkill(Player* /*player*/, SkillLineAbilityEntry const* /*skill*/, uint32 /*current_level*/, uint32& /*gain*/) { }
 
     [[nodiscard]] virtual bool OnPlayerUpdateFishingSkill(Player* /*player*/, int32 /*skill*/, int32 /*zone_skill*/, int32 /*chance*/, int32 /*roll*/) { return true; }
+
+    /**
+     * @brief This hook is called at the end of skill changes
+     *
+     * @param player Contains information about the Player sender
+     * @param skill Contains information about the skill line
+     */
+    virtual void OnPlayerSkillChange(Player* /*player*/, uint32 /*skill_id*/) { }
 
     [[nodiscard]] virtual bool OnPlayerCanAreaExploreAndOutdoor(Player* /*player*/) { return true; }
 
