@@ -119,6 +119,9 @@ variables_map GetConsoleArguments(int argc, char** argv, fs::path& configFile, [
 /// Launch the Azeroth server
 int main(int argc, char** argv)
 {
+	// disable stdout buffering, otherwise it doesn't work with AMP Server Manager
+	setvbuf(stdout, nullptr, _IONBF, 0);
+    
     Acore::Impl::CurrentServerProcessHolder::_type = SERVER_PROCESS_WORLDSERVER;
     signal(SIGABRT, &Acore::AbortHandler);
 
