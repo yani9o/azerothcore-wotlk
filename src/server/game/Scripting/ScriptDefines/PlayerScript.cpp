@@ -596,7 +596,7 @@ bool ScriptMgr::OnPlayerUpdateFishingSkill(Player* player, int32 skill, int32 zo
 
 void ScriptMgr::OnPlayerLearnedSkillsChange(Player *player, uint32 skillId)
 {
-    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_SKILL_CHANGE, script->OnPlayerLearnedSkillsChange(player, skillId));
+    CALL_ENABLED_HOOKS(PlayerScript, PLAYERHOOK_ON_LEARNED_SKILLS_CHANGE, script->OnPlayerLearnedSkillsChange(player, skillId));
 }
 
 bool ScriptMgr::OnPlayerCanAreaExploreAndOutdoor(Player* player)
