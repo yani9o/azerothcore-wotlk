@@ -176,6 +176,28 @@ public:
     }
 };
 
+// ----------------- BUFF CONTROL -----------------
+class lfg_solo_BuffControl : public PlayerScript
+{
+public:
+    lfg_solo_BuffControl() : PlayerScript("lfg_solo_BuffControl") {}
+
+    void OnPlayerMapChanged(Player* player) override
+    {
+        player->m_Events.AddEventAtOffset([player]()
+        {
+            if (sConfigMgr->GetOption<bool>("SoloLFG.Enable", true) && player->HasAura(72221))
+            {
+				Group* group = player->GetGroup();
+				if (!group || group->GetMembersCount() <= 1)
+				{
+					player->RemoveAura(72221);
+				}
+            }
+        }, 1000ms); 
+    }
+};
+
 // ----------------- GROUP SETTINGS -----------------
 class lfg_solo_GroupScript : public GroupScript
 {
@@ -210,6 +232,7 @@ void AddLfgSoloScripts()
 {
     new lfg_solo_announce();
     new lfg_criteria_lock();
+	new lfg_solo_BuffControl();
     new lfg_solo_GroupScript();
     new lfg_solo_WorldScript();
 }
