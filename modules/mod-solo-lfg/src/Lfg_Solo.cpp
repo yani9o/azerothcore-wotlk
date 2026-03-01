@@ -182,13 +182,14 @@ class lfg_solo_GroupScript : public GroupScript
 public:
     lfg_solo_GroupScript() : GroupScript("lfg_solo_GroupScript") {}
 
-    void OnCreate(Group* group, Player* /*leader*/) override
-    {
-        if (sConfigMgr->GetOption<bool>("SoloLFG.Enable", true) && group->GetMembersCount() <= 1)
-        {
-            group->SetLootMethod(LootMethod::FREE_FOR_ALL);
-        }
-    }
+    void OnAddMember(Group* group, ObjectGuid guid) override
+	{
+		if (sConfigMgr->GetOption<bool>("SoloLFG.Enable", true) && group->GetMembersCount() <= 1)
+		{
+			group->SetLootMethod(LootMethod::FREE_FOR_ALL);
+			group->SendUpdate();
+		}
+	}
 };
 
 // ----------------- WORLDSCRIPT -----------------
