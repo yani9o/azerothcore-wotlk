@@ -46,7 +46,7 @@ public:
 
     void OnPlayerLogin(Player* player) override { CheckTrackingResource(player); }
 	
-    void OnPlayerSkillChange(Player* player, uint32 skillId) override
+    void OnPlayerLearnedSkillsChange(Player* player, uint32 skillId) override
     {
         if (skillId == 182 || skillId == 186)
             CheckTrackingResource(player);
