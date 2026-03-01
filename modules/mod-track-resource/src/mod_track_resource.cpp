@@ -46,7 +46,7 @@ public:
 
     void OnPlayerLogin(Player* player) override { CheckTrackingResource(player); }
 	
-    void OnPlayerLearnedSkillsChange(Player* player, uint32 skillId) override
+    void OnPlayerSkillChange(Player* player, uint32 skillId) override
     {
         if (skillId == 182 || skillId == 186)
             CheckTrackingResource(player);
@@ -77,4 +77,3 @@ void Addmod_track_resourceScripts()
 	new TrackResource_PlayerScript();
 	new TrackResource_WorldScript();
 }
-
