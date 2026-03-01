@@ -1,4 +1,4 @@
-INSERT IGNORE INTO `acore_world`.`creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
+INSERT IGNORE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
 (10440, 22691, 0, 1, 0, 1, 0, 1, 1, 'Custom - Baron Rivendare - Corrupted Ashbringer'),
 (11583, 22727, 0, 3, 0, 1, 0, 1, 1, 'Custom - Nefarian - Atiesh Quest Item'),
 (15339, 22733, 0, 100, 1, 1, 0, 1, 1, 'Custom - Ossirian - Atiesh Head'),
