@@ -31,6 +31,7 @@ namespace SimpleBalance
 
     static std::unordered_map<uint32, ScaleState> InstanceState;
     std::set<uint32> ForcedNPCs;
+	std::set<uint32> GatedNPCs;
 
     void LoadConfig()
     {
@@ -51,6 +52,12 @@ namespace SimpleBalance
         std::stringstream ss(list);
         while (std::getline(ss, token, ','))
             ForcedNPCs.insert(uint32(std::stoul(token)));
+		
+		GatedNPCs.clear();
+		list = sConfigMgr->GetOption<std::string>("SimpleBalance.GatedNPCs", "");
+		std::stringstream ss2(list);
+		while (std::getline(ss2, token, ','))
+			GatedNPCs.insert(uint32(std::stoul(token)));
 		
     }
 
@@ -127,6 +134,11 @@ namespace SimpleBalance
         return unit && unit->IsCreature() && ForcedNPCs.count(unit->GetEntry()) > 0;
     }
 
+    bool IsGatedNPC(Unit* unit)
+    {
+        return unit && unit->IsCreature() && GatedNPCs.count(unit->GetEntry()) > 0;
+    }
+
     void CheckAndAnnounce(Map* map, uint32 playersOverride = 0)
     {
         if (!map) return;
@@ -196,8 +208,17 @@ public:
 
         if ((attackerIsPlayerSide && !victimIsPlayerSide) || SimpleBalance::IsForcedNPC(victim))
         {
+			
+			if (damage >= victim->GetHealth())
+				return;
+			
             float scale = SimpleBalance::ScaleOutgoing(float(P), float(M), factor) / 100.0f;
-            damage = uint32(damage * scale);
+            uint32 scaledDamage = uint32(damage * scale);
+
+			if (SimpleBalance::IsGatedNPC(victim) && scaledDamage >= victim->GetHealth())
+				scaledDamage = victim->GetHealth() - 1;
+
+			damage = scaledDamage;
         }
 
         if (!attackerIsPlayerSide && victimIsPlayerSide)
@@ -223,8 +244,11 @@ public:
         bool attackerIsPlayerSide = SimpleBalance::IsPlayerOrPlayerPet(attacker);
         bool victimIsPlayerSide   = SimpleBalance::IsPlayerOrPlayerPet(victim);
 
-        if (attackerIsPlayerSide && !victimIsPlayerSide)
+        if ((attackerIsPlayerSide && !victimIsPlayerSide) || SimpleBalance::IsForcedNPC(victim))
         {
+			if (damage >= victim->GetHealth())
+				return;
+			
             float scale = SimpleBalance::ScaleOutgoing(float(P), float(M), factor) / 100.0f;
 			float scaledamage = damage - (damage / scale);
 			victim->AddThreat(attacker, -scaledamage);

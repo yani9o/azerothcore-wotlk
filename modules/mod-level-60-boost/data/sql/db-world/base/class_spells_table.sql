@@ -209,6 +209,7 @@ INSERT IGNORE INTO `mod_boost_class_spells` (`class_id`,`spell_id`) VALUES
 (2, 53407),
 (2, 53408),
 (2, 62124),
+(2, 90001),
 (3, 136),
 (3, 674),
 (3, 781),
