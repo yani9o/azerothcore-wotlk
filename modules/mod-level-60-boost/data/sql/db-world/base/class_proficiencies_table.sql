@@ -78,4 +78,6 @@ INSERT INTO `mod_boost_class_proficiencies` (`class_id`, `spell_id`, `required_l
 (11, 200, 20, 'Polearms'),
 (11, 227, 0, 'Staves'),
 (11, 1180, 0, 'Daggers'),
-(11, 15590, 0, 'Fist Weapons');
+(11, 15590, 0, 'Fist Weapons'),
+(6, 198, 0, 'One-Handed Maces'),
+(6, 199, 0, 'Two-Handed Maces');
