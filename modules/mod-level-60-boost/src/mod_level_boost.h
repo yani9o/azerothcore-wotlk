@@ -118,6 +118,8 @@ public:
     void AddClassItems(Player* player);
     void LearnSpellsForLevel(Player* player);
     void LearnProficienciesForLevel(Player* player);
+    std::vector<int> GetAvailableFlightPaths(Player* player);
+    void UnlockFlightPaths(Player* player);
     void HandleBoost(Player* player, Creature* creature, const std::string& spec);
 	void HandleDeathKnight(Player* player);
 	void GetRaceMount(Player* player);
