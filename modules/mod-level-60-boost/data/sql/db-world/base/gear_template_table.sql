@@ -651,8 +651,6 @@ INSERT INTO `mod_boost_gear` (`player_class`, `player_spec`, `equipment_slot`, `
 ('Deathknight', 'Unholy', 21, 4500),
 ('Deathknight', 'Unholy', 22, 4500),
 ('Deathknight', 'Unholy', 18, 5976),
-('Deathknight', 'All', 10, 41751),
-('Deathknight', 'All', 1, 6948),
 ('Deathknight', 'All', 1, 40483),
 ('Deathknight', 'All', 1, 38707),
 ('Deathknight', 'All', 1, 38633),

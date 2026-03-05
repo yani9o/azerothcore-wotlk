@@ -166,30 +166,43 @@
 		{
 			if (Item* item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
 			{
-				player->DestroyItemCount(item->GetEntry(), 1, true, true);
-
-				if (item)
+				player->DestroyItem(INVENTORY_SLOT_BAG_0, i, true);
+			}
+		}
+		
+		for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
+		{
+			if (Bag* bag = player->GetBagByPos(i))
+			{
+				for (uint32 j = 0; j < bag->GetBagSize(); ++j)
 				{
-					player->DestroyItemCount(item->GetEntry(), 1, true, true);
-
-					if (item->IsInWorld())
-					{
-						item->RemoveFromWorld();
-						item->DestroyForPlayer(player);
-					}
-
-					item->SetUInt32Value(ITEM_FIELD_CONTAINED, 0);
-					item->SetSlot(NULL_SLOT);
-					item->SetState(ITEM_REMOVED, player);
-
+					player->DestroyItem(i, j, true);
 				}
 			}
+		}
+
+		for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
+		{
+			player->DestroyItem(INVENTORY_SLOT_BAG_0, i, true);
+		}
+
+		for (uint8 i = INVENTORY_SLOT_ITEM_START; i < INVENTORY_SLOT_ITEM_END; ++i)
+		{
+			player->DestroyItem(INVENTORY_SLOT_BAG_0, i, true);
 		}
 	}
 
 	void LevelBoost::AddClassItems(Player* player)
 	{
 		std::string playerClass = GetClassString(player);
+		
+		player->AddItem(6948, 1);
+		
+		if ( playerClass == "Hunter" || playerClass == "Rogue" || playerClass == "Warrior" )
+		{
+			player->AddItem(28053, 1000);
+			player->SetAmmo(28053);
+		}
 
 		for (auto& gearTemplate : gearTemplateList)
 		{
@@ -320,12 +333,30 @@
 
 		LearnDualSpec(player);
 		LearnSpellsForLevel(player);
+		GetRaceMount(player);
 		LearnProficienciesForLevel(player);
 		AddClassItems(player);
 		
 		player->UpdateSkillsToMaxSkillsForLevel();
 		CloseGossipMenuFor(player);
 		player->SendTalentsInfoData(false);
+		
+		WorldLocation Aloc = WorldLocation(0, -8866.55f, 671.39f, 97.90f, 5.27f); // Stormwind
+		WorldLocation Hloc = WorldLocation(1, 1637.62f, -4440.22f, 15.78f, 2.42f); // Orgrimmar
+
+		if (player->GetTeamId() == TEAM_ALLIANCE)
+		{
+			player->TeleportTo(0, -8833.37f, 628.62f, 94.00f, 1.06f); //Stormwind
+			player->SetHomebind(Aloc, 1637);
+		}
+		else
+		{
+			player->TeleportTo(1, 1569.59f, -4397.63f, 7.70f, 0.54f); //Orgrimmar
+			player->SetHomebind(Hloc, 1653);
+		}
+		
+		player->SaveToDB(false, false);
+		
 	}
 
 	std::string LevelBoost::GetClassString(Player* player)
@@ -399,32 +430,6 @@
 					gearTemplate.item_entry,
 					true);
 			}
-		}
-	}
-
-	void LevelBoost::DestroyProjectiles(Player* player)
-	{
-		if (player->getClass() != CLASS_HUNTER)
-		{
-			if (player->getClass() == CLASS_ROGUE || player->getClass() == CLASS_WARRIOR)
-			{
-				player->AddItem(ITEM_BOOST_ARROWS, ARROW_COUNT);
-				player->SetAmmo(ITEM_BOOST_ARROWS);
-			}
-			return;
-		}
-
-		if (player->HasItemCount(ITEM_DEFAULT_ARROWS))
-		{
-			player->DestroyItemCount(ITEM_DEFAULT_ARROWS, player->GetItemCount(ITEM_DEFAULT_ARROWS), true, true);
-			player->AddItem(ITEM_BOOST_ARROWS, ARROW_COUNT);
-			player->SetAmmo(ITEM_BOOST_ARROWS);
-		}
-		else
-		{
-			player->DestroyItemCount(ITEM_DEFAULT_BULLETS, player->GetItemCount(ITEM_DEFAULT_BULLETS), true, true);
-			player->AddItem(ITEM_BOOST_BULLETS, BULLET_COUNT);
-			player->SetAmmo(ITEM_BOOST_BULLETS);
 		}
 	}
 
@@ -522,25 +527,66 @@
 			}
 		}
 		
-		for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
+	}
+	
+	void LevelBoost::GetRaceMount(Player* player)
+	{
+		uint32 mountSpellId = 0;
+		switch (player->getRace())
 		{
-			if (Bag* bag = player->GetBagByPos(i))
+			case RACE_HUMAN:
+				mountSpellId = 23229;
+				break;
+			case RACE_DWARF:
+				mountSpellId = 23238;
+				break;
+			case RACE_NIGHTELF:
+				mountSpellId = 23221;
+				break;
+			case RACE_GNOME:
+				mountSpellId = 23225;
+				break;
+			case RACE_DRAENEI:
+				mountSpellId = 35713;
+				break;
+			case RACE_ORC:
+				mountSpellId = 23250;
+				break;
+			case RACE_UNDEAD_PLAYER:
+				mountSpellId = 17465;
+				break;
+			case RACE_TAUREN:
+				mountSpellId = 23249;
+				break;
+			case RACE_TROLL:
+				mountSpellId = 23241;
+				break;
+			case RACE_BLOODELF:
+				mountSpellId = 35025;
+				break;
+			default:
+				mountSpellId = 0;
+				break;
+		}
+		
+		if (!player->HasSpell(mountSpellId) && mountSpellId > 0)
+		{
+			player->learnSpell(mountSpellId);
+		}
+		
+		if ( player->getClass() == CLASS_PALADIN )
+		{
+			uint32 palaMountN = 13819;
+			uint32 palaMountE = 23214;
+			
+			if (player->GetTeamId() == TEAM_HORDE)
 			{
-				for (uint32 j = 0; j < bag->GetBagSize(); ++j)
-				{
-					player->DestroyItem(i, j, true);
-				}
+					palaMountN = 34769;
+					palaMountE = 34767;
 			}
-		}
-
-		for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
-		{
-			player->DestroyItem(INVENTORY_SLOT_BAG_0, i, true);
-		}
-
-		for (uint8 i = INVENTORY_SLOT_ITEM_START; i < INVENTORY_SLOT_ITEM_END; ++i)
-		{
-			player->DestroyItem(INVENTORY_SLOT_BAG_0, i, true);
+			
+			player->learnSpell(palaMountN);
+			player->learnSpell(palaMountE);
 		}
 		
 	}
@@ -569,7 +615,6 @@
 			player->ModifyMoney(100000 - player->GetMoney());
 
 		DestroyGear(player);
-		DestroyProjectiles(player);
 		ApplyGearTemplate(player, player_spec);
 		ApplyGlyphTemplate(player, player_spec);
 		ApplyTalentTemplate(player, player_spec);
@@ -578,22 +623,6 @@
 			player->SetPower(POWER_MANA, player->GetMaxPower(POWER_MANA));
 
 		player->SetHealth(player->GetMaxHealth());
-		
-		WorldLocation Aloc = WorldLocation(0, -8866.55f, 671.39f, 97.90f, 5.27f); // Stormwind
-		WorldLocation Hloc = WorldLocation(1, 1637.62f, -4440.22f, 15.78f, 2.42f); // Orgrimmar
-
-		if (player->GetTeamId() == TEAM_ALLIANCE)
-		{
-			player->TeleportTo(0, -8833.37f, 628.62f, 94.00f, 1.06f); //Stormwind
-			player->SetHomebind(Aloc, 1637);
-		}
-		else
-		{
-			player->TeleportTo(1, 1569.59f, -4397.63f, 7.70f, 0.54f); //Orgrimmar
-			player->SetHomebind(Hloc, 1653);
-		}
-		
-		player->SaveToDB(false, false);
 
 		return true;
 	}
@@ -709,8 +738,6 @@
 			if (AchievementCriteriaEntry const* CriteriaEntry = sAchievementCriteriaStore.LookupEntry(4944))
 			if (player->GetAchievementMgr()->GetCriteriaProgress(CriteriaEntry))
 				noKills = false;
-			
-			LOG_INFO("module", ">> Level 60 Boost: noQuests = {} | noKills = {}...", noQuests, noKills);
 
 			if (!noQuests || !noKills ||
 				(player->getClass() != CLASS_DEATH_KNIGHT && player->GetLevel() != 1) || 

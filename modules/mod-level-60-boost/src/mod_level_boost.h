@@ -15,22 +15,12 @@
 #include <vector>
 #include <string>
 
-#define ITEM_DEFAULT_ARROWS 2512
-#define ITEM_DEFAULT_BULLETS 2516
-#define ITEM_BOOST_ARROWS 28053
-#define ITEM_BOOST_BULLETS 28060
-#define ITEM_SHAMAN_TOTEM_1 5175
-#define ITEM_SHAMAN_TOTEM_2 5176
-
-const int ARROW_COUNT = 1000;
-const int BULLET_COUNT = 1000;
 const int BOOST_TEXT = 70000;
 
 enum GossipId
 {
     GOSSIP_MAIN_MENU = 0,
     GOSSIP_LEVEL_60_BOOST = 1,
-    GOSSIP_LEVEL_60_BOOST_DEATHKNIGHT = 55,
     GOSSIP_GEAR = 100,
     GOSSIP_RESET_TALENTS = 999
 };
@@ -125,12 +115,12 @@ public:
     // Boost methods
     void LearnDualSpec(Player* player);
     void DestroyGear(Player* player);
-    void DestroyProjectiles(Player* player);
     void AddClassItems(Player* player);
     void LearnSpellsForLevel(Player* player);
     void LearnProficienciesForLevel(Player* player);
     void HandleBoost(Player* player, Creature* creature, const std::string& spec);
 	void HandleDeathKnight(Player* player);
+	void GetRaceMount(Player* player);
     void CreateHunterPet(Player* player, Creature* creature, uint32 entry);
 
     // Apply templates
