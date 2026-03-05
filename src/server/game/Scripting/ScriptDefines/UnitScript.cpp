@@ -24,9 +24,19 @@ void ScriptMgr::OnHeal(Unit* healer, Unit* reciever, uint32& gain)
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_HEAL, script->OnHeal(healer, reciever, gain));
 }
 
+void ScriptMgr::AfterHeal(Unit* healer, Unit* receiver, uint32& gain)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_AFTER_HEAL, script->AfterHeal(healer, receiver, gain));
+}
+
 void ScriptMgr::OnDamage(Unit* attacker, Unit* victim, uint32& damage)
 {
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_DAMAGE, script->OnDamage(attacker, victim, damage));
+}
+
+void ScriptMgr::AfterDamage(Unit* attacker, Unit* victim, uint32& damage)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_AFTER_DAMAGE, script->AfterDamage(attacker, victim, damage));
 }
 
 void ScriptMgr::ModifyPeriodicDamageAurasTick(Unit* target, Unit* attacker, uint32& damage, SpellInfo const* spellInfo)

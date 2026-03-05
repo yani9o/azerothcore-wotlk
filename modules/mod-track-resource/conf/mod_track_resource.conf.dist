@@ -1,0 +1,11 @@
+###################################################################################################
+# mod_track_resource
+#
+# Autolearn tracking for flowers and ores at the same time if both professions are learned
+#
+###################################################################################################
+
+TrackResource.Enable = 1
+
+# SpellId of the Tracking Skill
+TrackResource.TrackId = 90006

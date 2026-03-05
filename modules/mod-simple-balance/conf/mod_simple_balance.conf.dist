@@ -1,0 +1,30 @@
+###################################################################################################
+# Simple Balance
+#
+# Scale damage to and from Player Units (incl. Pets)
+#
+# by yani9o
+###################################################################################################
+
+# Enable the Module
+SimpleBalance.Enable = 1
+
+# Auto-Print Messages in Chat
+SimpleBalance.Announce = 0
+
+# Normalize Experience gain (as if the group was full)
+SimpleBalance.NormalizeXP = 1
+
+# Scaling Factors (0-1) - higher value = easier
+SimpleBalance.Dungeon = 0.25
+SimpleBalance.Raid10 = 0.30
+SimpleBalance.Raid20 = 0.40
+SimpleBalance.Raid25 = 0.45
+SimpleBalance.Raid40 = 0.50
+SimpleBalance.General = 0.50
+
+# NPC-IDs that should be scaled even if they don't directly interact with player
+SimpleBalance.ForcedNPCs = 23426
+
+# NPC-IDs that have to be gated/clamped so Scripts don't break (for example: Mograine)
+SimpleBalance.GatedNPCs = 3976,3977

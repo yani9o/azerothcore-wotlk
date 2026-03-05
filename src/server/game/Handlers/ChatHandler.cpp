@@ -32,6 +32,7 @@
 #include "ObjectMgr.h"
 #include "Opcodes.h"
 #include "Player.h"
+#include "Pet.h"
 #include "ScriptMgr.h"
 #include "SpellAuraEffects.h"
 #include "SpellAuras.h"
@@ -659,7 +660,7 @@ namespace Acore
 
         void operator()(WorldPacket& data, LocaleConstant loc_idx)
         {
-            std::string const name(i_target ? i_target->GetNameForLocaleIdx(loc_idx) : "");
+            std::string const name(i_target ? (const_cast<Unit*>(i_target)->ToPet() ? const_cast<Unit*>(i_target)->ToPet()->GetName() : i_target->GetNameForLocaleIdx(loc_idx)) : "");
             uint32 namlen = name.size();
 
             data.Initialize(SMSG_TEXT_EMOTE, 20 + namlen);

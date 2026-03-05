@@ -1,0 +1,107 @@
+[worldserver]
+
+#################################
+#
+# Enable different items to be purchased
+# Heirlooms include armor pieces, weapons and tome of cold weather flight
+# Glyphs include every major and minor glyph for all classes
+# Gems include all glyphs relevant for level 80 classes
+# Elixirs include all battle and guardian elixirs
+# Food includes most of the food items that give you a buff after 10 seconds of eating them
+# Containers include the lowest amount of slot bags by default
+#
+
+Assistant.Heirlooms.Enabled  = 0
+Assistant.Glyphs.Enabled     = 0
+Assistant.Gems.Enabled       = 0
+Assistant.Elixirs.Enabled    = 0
+Assistant.Food.Enabled       = 0
+Assistant.Enchants.Enabled   = 0
+Assistant.Containers.Enabled = 0
+
+#################################
+
+#################################
+#
+# Enable utility features
+# This includes name change, character customization, race change and faction change
+# The cost is set in copper
+# It is free if cost is set to 0
+#
+
+Assistant.Utilities.Enabled            = 1
+Assistant.Utilities.NameChange.Cost    = 10000
+Assistant.Utilities.Customize.Cost     = 100000
+Assistant.Utilities.RaceChange.Cost    = 1000000
+Assistant.Utilities.FactionChange.Cost = 10000000
+
+#################################
+
+#################################
+#
+# Unlock flight paths based on the players level
+# The cost is set in copper
+# It is free if cost is set to 0
+#
+
+Assistant.FlightPaths.Vanilla.Enabled                  = 1
+Assistant.FlightPaths.Vanilla.RequiredLevel            = 60
+Assistant.FlightPaths.Vanilla.Cost                     = 10000000
+Assistant.FlightPaths.BurningCrusade.Enabled           = 1
+Assistant.FlightPaths.BurningCrusade.RequiredLevel     = 70
+Assistant.FlightPaths.BurningCrusade.Cost              = 50000000
+Assistant.FlightPaths.WrathOfTheLichKing.Enabled       = 1
+Assistant.FlightPaths.WrathOfTheLichKing.RequiredLevel = 80
+Assistant.FlightPaths.WrathOfTheLichKing.Cost          = 100000000
+
+#################################
+
+#################################
+#
+# Increase profession skills by spending gold
+# The cost is set in copper
+# It is free if cost is set to 0
+#
+
+Assistant.Professions.Apprentice.Enabled  = 1
+Assistant.Professions.Apprentice.Cost     = 500000
+Assistant.Professions.Journeyman.Enabled  = 1
+Assistant.Professions.Journeyman.Cost     = 1000000
+Assistant.Professions.Expert.Enabled      = 1
+Assistant.Professions.Expert.Cost         = 5000000
+Assistant.Professions.Artisan.Enabled     = 1
+Assistant.Professions.Artisan.Cost        = 10000000
+Assistant.Professions.Master.Enabled      = 1
+Assistant.Professions.Master.Cost         = 50000000
+Assistant.Professions.GrandMaster.Enabled = 1
+Assistant.Professions.GrandMaster.Cost    = 100000000
+
+#################################
+
+#################################
+#
+# Reset instances by spending gold
+# The cost is set in copper
+# It is free if cost is set to 0
+#
+
+Assistant.Instances.Enabled         = 1
+Assistant.Instances.Heroic.Enabled  = 1
+Assistant.Instances.Heroic.Cost     = 1000000
+Assistant.Instances.Raid.Enabled    = 1
+Assistant.Instances.Raid.Cost       = 10000000
+
+#################################
+
+#################################
+#
+# Enable Zandalar Raidbuff via Assistant NPC
+# Default: 1 (enabled)
+# The cost is set in copper
+# It is free if cost is set to 0
+#
+
+Assistant.Raidbuff.Enabled = 1
+Assistant.Raidbuff.Cost    = 100000
+
+#################################

@@ -24,7 +24,9 @@
 enum UnitHook
 {
     UNITHOOK_ON_HEAL,
+	UNITHOOK_AFTER_HEAL,
     UNITHOOK_ON_DAMAGE,
+	UNITHOOK_AFTER_DAMAGE,
     UNITHOOK_MODIFY_PERIODIC_DAMAGE_AURAS_TICK,
     UNITHOOK_MODIFY_MELEE_DAMAGE,
     UNITHOOK_MODIFY_SPELL_DAMAGE_TAKEN,
@@ -58,9 +60,15 @@ protected:
 public:
     // Called when a unit deals healing to another unit
     virtual void OnHeal(Unit* /*healer*/, Unit* /*reciever*/, uint32& /*gain*/) { }
+	
+    // Called at the end of DealHeal()
+    virtual void AfterHeal(Unit* /*healer*/, Unit* /*reciever*/, uint32& /*gain*/) { }
 
     // Called when a unit deals damage to another unit
     virtual void OnDamage(Unit* /*attacker*/, Unit* /*victim*/, uint32& /*damage*/) { }
+
+    // Called at the end of DealDamage()
+    virtual void AfterDamage(Unit* /*attacker*/, Unit* /*victim*/, uint32& /*damage*/) { }
 
     // Called when DoT's Tick Damage is being Dealt
     // Attacker can be nullptr if he is despawned while the aura still exists on target

@@ -1,0 +1,15 @@
+###################################################################################################
+# mod_pet_abilities
+#
+# Enables additional hunter pet abilities:
+#  - Ravage for Bear pets
+#  - Swipe for all other hunter pets
+###################################################################################################
+
+PetAbilities.Enable = 1
+
+# Enable Ravage for Bear pets
+PetAbilities.BearRavage = 1
+
+# Enable Swipe for non-bear hunter pets
+PetAbilities.OtherSwipe = 1
