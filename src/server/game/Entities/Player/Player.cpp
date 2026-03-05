@@ -5366,10 +5366,13 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
 
             // remove all spells that related to this skill
             for (SkillLineAbilityEntry const* pAbility : GetSkillLineAbilitiesBySkillLine(id))
+            {
                 removeSpell(sSpellMgr->GetFirstSpellInChain(pAbility->Spell), SPEC_MASK_ALL, false);
+                RemoveAurasDueToSpell(pAbility->Spell);
+            }
 			
-			// Custom-Hook for OnPlayerLearnedSkillsChange Event
-			sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
+            // Custom-Hook for OnPlayerLearnedSkillsChange Event
+            sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
         }
     }
     else if (newVal)                                        //add
@@ -5418,8 +5421,8 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_REACH_SKILL_LEVEL, id);
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LEARN_SKILL_LEVEL, id);
 				
-				// Custom-Hook for OnPlayerLearnedSkillsChange Event
-				sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
+                // Custom-Hook for OnPlayerLearnedSkillsChange Event
+                sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
             
                 return;
             }
@@ -10034,9 +10037,10 @@ bool Player::HasSpellModApplied(SpellModifier* mod, Spell* spell)
 
 void Player::SetSpellModTakingSpell(Spell* spell, bool apply)
 {
-    if (apply && m_spellModTakingSpell && m_spellModTakingSpell != spell)
+    if (apply && m_spellModTakingSpell != nullptr)
         return;
-    else if (!apply && m_spellModTakingSpell != spell)
+
+    if (!apply && (!m_spellModTakingSpell || m_spellModTakingSpell != spell))
         return;
 
     m_spellModTakingSpell = apply ? spell : nullptr;
