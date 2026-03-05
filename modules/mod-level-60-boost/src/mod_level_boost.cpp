@@ -563,6 +563,7 @@
 		}
 
 		player->GiveLevel(60);
+		player->SetUInt32Value(PLAYER_XP, 0);
 
 		if (player->GetMoney() < 100000)
 			player->ModifyMoney(100000 - player->GetMoney());
@@ -702,9 +703,21 @@
 		bool OnGossipHello(Player* player, Creature* creature)
 		{
 			ClearGossipMenuFor(player);
+			
+			uint32 noQuests = (player->GetRewardedQuestCount() == 0);
+			uint32 noKills = true;
+			if (AchievementCriteriaEntry const* CriteriaEntry = sAchievementCriteriaStore.LookupEntry(4944))
+			if (player->GetAchievementMgr()->GetCriteriaProgress(CriteriaEntry))
+				noKills = false;
+			
+			LOG_INFO("module", ">> Level 60 Boost: noQuests = {} | noKills = {}...", noQuests, noKills);
 
-			if ((player->getClass() != CLASS_DEATH_KNIGHT && player->GetLevel() != 1) || (player->getClass() == CLASS_DEATH_KNIGHT && player->GetLevel() != 55) )
+			if (!noQuests || !noKills ||
+				(player->getClass() != CLASS_DEATH_KNIGHT && player->GetLevel() != 1) || 
+				(player->getClass() == CLASS_DEATH_KNIGHT && player->GetLevel() != 55))
+			{
 				return false;
+			}
 
 			if (creature->IsQuestGiver())
 				player->PrepareQuestMenu(creature->GetGUID());

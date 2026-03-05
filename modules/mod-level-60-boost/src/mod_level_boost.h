@@ -2,6 +2,7 @@
 #define DEF_LEVELBOOST_H
 
 #include "Player.h"
+#include "AchievementMgr.h"
 #include "Log.h"
 #include "ScriptedGossip.h"
 #include "ScriptMgr.h"
