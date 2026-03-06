@@ -247,6 +247,25 @@ void LevelBoost::LearnSpellsForLevel(Player* player)
 			}
 		}
 	}
+	
+	if (player->getClass() == CLASS_MAGE)
+	{
+		std::vector<uint32> teleportSpells;
+		if (player->GetTeamId() == TEAM_ALLIANCE)
+		{
+			teleportSpells = {3561,3562,3565,32271,49359,10059,11416,11419,32266,49360};
+		}
+		else
+		{
+			teleportSpells = {3567,3566,3563,32272,49358,11417,11420,11418,32267,49361};
+		}
+		
+		for (uint32 spellId : teleportSpells)
+		{
+			player->learnSpell(spellId, false);
+		}
+	}
+	
 }
 
 void LevelBoost::LearnProficienciesForLevel(Player* player)
@@ -438,30 +457,30 @@ void LevelBoost::HandleBoost(Player* player, Creature* creature, const std::stri
 
 	switch (player->getRace())
 	{
-	case RACE_NIGHTELF:
-	case RACE_DRAENEI:
-		CreateHunterPet(player, creature, 2031);
-		break;
-	case RACE_HUMAN:
-		CreateHunterPet(player, creature, 525);
-		break;
-	case RACE_DWARF:
-	case RACE_GNOME:
-		CreateHunterPet(player, creature, 705);
-		break;
-	case RACE_ORC:
-	case RACE_TROLL:
-		CreateHunterPet(player, creature, 3121);
-		break;
-	case RACE_TAUREN:
-		CreateHunterPet(player, creature, 3035);
-		break;
-	case RACE_UNDEAD_PLAYER:
-		CreateHunterPet(player, creature, 1508);
-		break;
-	case RACE_BLOODELF:
-		CreateHunterPet(player, creature, 15366);
-		break;
+		case RACE_NIGHTELF:
+		case RACE_DRAENEI:
+			CreateHunterPet(player, creature, 2031);
+			break;
+		case RACE_HUMAN:
+			CreateHunterPet(player, creature, 525);
+			break;
+		case RACE_DWARF:
+		case RACE_GNOME:
+			CreateHunterPet(player, creature, 705);
+			break;
+		case RACE_ORC:
+		case RACE_TROLL:
+			CreateHunterPet(player, creature, 3121);
+			break;
+		case RACE_TAUREN:
+			CreateHunterPet(player, creature, 3035);
+			break;
+		case RACE_UNDEAD_PLAYER:
+			CreateHunterPet(player, creature, 1508);
+			break;
+		case RACE_BLOODELF:
+			CreateHunterPet(player, creature, 15366);
+			break;
 	}
 
 	LearnDualSpec(player);
