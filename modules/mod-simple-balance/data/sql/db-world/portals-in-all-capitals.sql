@@ -149,7 +149,9 @@ DELETE FROM `gameobject` WHERE `guid` IN (
     @GO_SPAWN + 49,
     @GO_SPAWN + 50,
     @GO_SPAWN + 51,
-    @GO_SPAWN + 52
+    @GO_SPAWN + 52,
+    @GO_SPAWN + 53,
+    @GO_SPAWN + 54
 );
 INSERT INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`)
 VALUES
@@ -204,6 +206,10 @@ VALUES
 (@GO_SPAWN + 49, 201797, 1, 0, 0, 1, 1, 9662.29, 2519.49, 1331.63, 3.34274, 0, 0, -0.994947, 0.100406, 300, 0, 1, '', 0, 'Custom - City Portal'),
 (@GO_SPAWN + 50, 201797, 1, 0, 0, 1, 1, 1467.74, -4226.2, 58.9939, 1.27153, 0, 0, -0.593795, -0.804616, 300, 0, 1, '', 0, 'Custom - City Portal'),
 (@GO_SPAWN + 51, 201797, 1, 0, 0, 1, 1, -951.096, 287.918, 109.831, 4.11564, 0, 0, -0.88373, 0.467997, 300, 0, 1, '', 0, 'Custom - City Portal'),
-(@GO_SPAWN + 52, 201797, 0, 0, 0, 1, 1, 1777.84, 60.4878, -46.3223, 2.31893, 0, 0, -0.916589, -0.39983, 300, 0, 1, '', 0, 'Custom - City Portal');
+(@GO_SPAWN + 52, 201797, 0, 0, 0, 1, 1, 1777.84, 60.4878, -46.3223, 2.31893, 0, 0, -0.916589, -0.39983, 300, 0, 1, '', 0, 'Custom - City Portal'),
+(@GO_SPAWN + 53, 500000, 0, 0, 0, 1, 1, 2338.7202, -5663.7563, 382.24185, 2.31893, 0, 0, -0.916589, -0.39983, 300, 0, 1, '', 0, 'Custom - DK City Portal'),
+(@GO_SPAWN + 54, 500004, 0, 0, 0, 1, 1, 2350.1926, -5680.502, 382.24185, 2.31893, 0, 0, -0.916589, -0.39983, 300, 0, 1, '', 0, 'Custom - DK City Portal');
+
+
 
 DELETE FROM `conditions` WHERE `SourceEntry` IN (65728, 65729) AND `ErrorTextId` = 66;

@@ -283,16 +283,9 @@ void LevelBoost::LearnProficienciesForLevel(Player* player)
 			}
 		}
 	}
-	
-	player->SetSkill(186, 0, 300, 300);
-	player->SetSkill(182, 0, 300, 300);
-	player->SetSkill(393, 0, 300, 300);
-	player->SetSkill(129, 0, 300, 300);
-	player->SetSkill(185, 0, 300, 300);
-	player->SetSkill(356, 0, 300, 300);
 
 	std::vector<uint32> teacherSpells = {
-		2366, 2368, 2539, 2541, 2544, 2546, 2576, 2658, 2659, 3102,
+		3273, 2366, 2368, 2539, 2541, 2544, 2546, 2576, 2658, 2659, 3102,
 		3274, 3276, 3277, 3278, 3304, 3307, 3308, 3413, 3564, 3569, 
 		3570, 6499, 6500, 7620, 7732, 7924, 7928, 7929, 7934, 8613, 
 		8617, 8618, 10097, 10098, 10248, 10768, 10840, 10841, 10846, 11993, 
@@ -303,6 +296,13 @@ void LevelBoost::LearnProficienciesForLevel(Player* player)
 	{
 		player->learnSpell(spellId, false);
 	}
+	
+	player->SetSkill(186, 0, 300, 300);
+	player->SetSkill(182, 0, 300, 300);
+	player->SetSkill(393, 0, 300, 300);
+	player->SetSkill(129, 0, 300, 300);
+	player->SetSkill(185, 0, 300, 300);
+	player->SetSkill(356, 0, 300, 300);
 	
 }
 

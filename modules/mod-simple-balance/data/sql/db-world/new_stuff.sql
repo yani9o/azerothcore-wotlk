@@ -23,3 +23,13 @@ INSERT IGNORE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawn
 
 -- Set DualSpec to 10g
 UPDATE gossip_menu_option SET `BoxMoney` = 100000 WHERE BoxText LIKE "%Dual Talent%";
+
+-- Rime for FrostStrike and Deathstrike
+UPDATE `spell_proc` 
+SET 
+    `SpellFamilyMask0` = 16, -- Todesstoss (16)
+    `SpellFamilyMask1` = 131076   -- Auslöschen (131072) + Froststoss (4)
+WHERE `SpellId` = -49188;
+
+-- Standard:
+-- UPDATE `spell_proc` SET `SpellFamilyMask0` = 0, `SpellFamilyMask1` = 131072 WHERE `SpellId` = -49188;
