@@ -14,7 +14,7 @@
 > [!IMPORTANT]
 > **ALE** is an independent Lua scripting engine specifically designed for AzerothCore. This project has **diverged from the original Eluna project** and is no longer compatible with standard Eluna scripts. Scripts written for ALE will not work with the original Eluna engine and vice versa.
 
-## ?? Overview
+## 🚀 Overview
 
 ALE is a powerful, AzerothCore-specific implementation of a Lua scripting engine that enables server administrators and developers to create custom gameplay features, events, and mechanics without modifying the core server code.
 
@@ -23,7 +23,7 @@ ALE is a powerful, AzerothCore-specific implementation of a Lua scripting engine
 - **Enhanced API**: Extended functionality for AzerothCore, beyond the original Eluna specification.
 - **Community-Driven Development**: Actively maintained with community contributions
 
-## ?? Compatibility Notice
+## ⚠️ Compatibility Notice
 
 ### ALE vs Original Eluna
 
@@ -33,11 +33,11 @@ ALE is a powerful, AzerothCore-specific implementation of a Lua scripting engine
 
 If you need to use standard Eluna scripts or maintain compatibility with the original Eluna project, please use the dedicated AzerothCore port available at:
 
-**?? [ElunaAzerothCore](https://github.com/Eluna-Ports/ElunaAzerothCore)**
+**🔗 [ElunaAzerothCore](https://github.com/ElunaLuaEngine/ElunaAzerothcore)**
 
 This repository maintains compatibility with the original Eluna API and supports standard Eluna scripts.
 
-## ?? Table of Contents
+## 📋 Table of Contents
 
 - [Installation](#-installation)
 - [Documentation](#-documentation)
@@ -46,7 +46,7 @@ This repository maintains compatibility with the original Eluna API and supports
 - [Contributing](#-contributing)
 - [Acknowledgements](#-acknowledgements)
 
-## ? Installation
+## ⚡ Installation
 
 ### Prerequisites
 - AzerothCore server installation
@@ -78,7 +78,7 @@ make -j$(nproc)
 - **Lua 5.3**
 - **Lua 5.4**
 
-## ?? Documentation
+## 📚 Documentation
 
 ### Getting Started
 - **[Installation Guide](docs/INSTALL.md)** - Complete installation and setup instructions
@@ -97,7 +97,7 @@ make -j$(nproc)
 > [!WARNING]
 > **API Differences**: ALE functions may not be available in the original Eluna project and vice versa. Always refer to the ALE specific documentation when developing scripts.
 
-## ?? Support
+## 💬 Support
 
 ### Getting Help
 - **GitHub Issues**: [Report bugs or request features](https://github.com/azerothcore/mod-ale/issues)
@@ -108,7 +108,7 @@ make -j$(nproc)
 - [Lua Programming Guide](http://www.lua.org/)
 - [AzerothCore Documentation](http://www.azerothcore.org/)
 
-## ?? Contributing
+## 🤝 Contributing
 
 We welcome contributions from the community! Whether you code or not, there are many ways to help improve ALE.
 
@@ -125,7 +125,7 @@ We welcome contributions from the community! Whether you code or not, there are 
 ### Full Contributing Guide
 For detailed information on how to contribute code, documentation, scripts, or help the community, see our **[Contributing Guide](docs/CONTRIBUTING.md)**.
 
-## ?? Acknowledgements
+## 🌟 Acknowledgements
 
 ### Original Project
 mod-ale is built upon the foundation of the original [Eluna](https://github.com/ElunaLuaEngine/Eluna) project. We acknowledge and thank the original Eluna team for their pioneering work in Lua scripting for World of Warcraft server emulators.
@@ -141,14 +141,14 @@ mod-ale is built upon the foundation of the original [Eluna](https://github.com/
 - **[MaNGOS](https://www.getmangos.eu/)**
 - **[cMaNGOS](https://cmangos.net/)**
 
-## ?? License
+## 📄 License
 
 This project is licensed under the GNU General Public License v3.0. See [LICENSE](https://github.com/azerothcore/mod-ale/blob/master/LICENSE) for details.
 
 ---
 
 <div align="center">
-<sub>Developed with ?? by the AzerothCore and ALE community</sub>
+<sub>Developed with ❤️ by the AzerothCore and ALE community</sub>
 
-[? Back to Top](#-overview)
+[⬆ Back to Top](#-overview)
 </div>

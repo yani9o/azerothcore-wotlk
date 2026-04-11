@@ -317,6 +317,73 @@ namespace LuaPlayer
     }
 
     /**
+     * Returns the number of free slots in the [Player]'s inventory (backpack and equipped bags).
+     *
+     * @return uint32 freeSlots
+     */
+    int GetInventoryFreeSlots(lua_State* L, Player* player)
+    {
+        uint32 freeSlots = 0;
+
+        // Backpack slots in INVENTORY_SLOT_BAG_0 (INVENTORY_SLOT_ITEM_START to INVENTORY_SLOT_ITEM_END)
+        for (uint8 i = INVENTORY_SLOT_ITEM_START; i < INVENTORY_SLOT_ITEM_END; ++i)
+        {
+            if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+                ++freeSlots;
+        }
+
+        // Check equipped bags slots (INVENTORY_SLOT_BAG_START to INVENTORY_SLOT_BAG_END)
+        for (uint8 i = INVENTORY_SLOT_BAG_START; i < INVENTORY_SLOT_BAG_END; ++i)
+        {
+            if (Bag* bag = player->GetBagByPos(i))
+            {
+                for (uint32 j = 0; j < bag->GetBagSize(); ++j)
+                {
+                    if (!player->GetItemByPos(i, j))
+                        ++freeSlots;
+                }
+            }
+        }
+
+        ALE::Push(L, freeSlots);
+        return 1;
+    }
+
+    /**
+     * Returns the number of free slots in the [Player]'s bank (main bank and bank bags).
+     *
+     * @return uint32 freeSlots
+     */
+    int GetBankFreeSlots(lua_State* L, Player* player)
+    {
+        uint32 freeSlots = 0;
+
+        // Check main bank slots (BANK_SLOT_ITEM_START to BANK_SLOT_ITEM_END)
+        for (uint8 i = BANK_SLOT_ITEM_START; i < BANK_SLOT_ITEM_END; ++i)
+        {
+            if (!player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
+                ++freeSlots;
+        }
+
+        // Check bank bags slots (BANK_SLOT_BAG_START to BANK_SLOT_BAG_END)
+        for (uint8 i = BANK_SLOT_BAG_START; i < BANK_SLOT_BAG_END; ++i)
+        {
+            if (Bag* bag = player->GetBagByPos(i))
+            {
+                for (uint32 j = 0; j < bag->GetBagSize(); ++j)
+                {
+                    if (!player->GetItemByPos(i, j))
+                        ++freeSlots;
+                }
+            }
+        }
+
+        ALE::Push(L, freeSlots);
+        return 1;
+    }
+
+
+    /**
      * Returns `true` if the [Player] has a Tank Specialization, `false` otherwise.
      *
      * @return bool HasTankSpec
@@ -808,6 +875,28 @@ namespace LuaPlayer
     int GetHonorPoints(lua_State* L, Player* player)
     {
         ALE::Push(L, player->GetHonorPoints());
+        return 1;
+    }
+
+    /**
+     * Returns the [Player]s today Honor points.
+     *
+     * @return uint32 todayHonorPoints
+     */
+    int GetTodayHonorPoints(lua_State* L, Player* player)
+    {
+        ALE::Push(L, player->GetUInt32Value(PLAYER_FIELD_TODAY_CONTRIBUTION));
+        return 1;
+    }
+
+    /**
+     * Returns the [Player]s yesterday Honor points.
+     *
+     * @return uint32 yesterdayHonorPoints
+     */
+    int GetYesterdayHonorPoints(lua_State* L, Player* player)
+    {
+        ALE::Push(L, player->GetUInt32Value(PLAYER_FIELD_YESTERDAY_CONTRIBUTION));
         return 1;
     }
 
@@ -1495,6 +1584,28 @@ namespace LuaPlayer
     }
 
     /**
+     * Returns the [Player]s today Honorable Kills
+     *
+     * @return uint32 todayKills
+     */
+    int GetTodayKills(lua_State* L, Player* player)
+    {
+        ALE::Push(L, uint32(player->GetUInt16Value(PLAYER_FIELD_KILLS, 0)));
+        return 1;
+    }
+
+    /**
+     * Returns the [Player]s yesterday Honorable Kills
+     *
+     * @return uint32 yesterdayKills
+     */
+    int GetYesterdayKills(lua_State* L, Player* player)
+    {
+        ALE::Push(L, uint32(player->GetUInt16Value(PLAYER_FIELD_KILLS, 1)));
+        return 1;
+    }
+
+    /**
      * Returns the [Player]s IP address
      *
      * @return string ip
@@ -1634,6 +1745,8 @@ namespace LuaPlayer
         ByteBuffer data;
         player->m_taxi.AppendTaximaskTo(data, false);
 
+        uint32 idx = 1;
+
         for (uint8 i = 0; i < TaxiMaskSize; i++)
         {
             uint32 mask;
@@ -1641,11 +1754,11 @@ namespace LuaPlayer
 
             for (uint8 bit = 0; bit < 32; bit++)
             {
-                if (mask & (1 << bit))
+                if (mask & (1u << bit))
                 {
                     uint32 nodeId = (i * 32) + bit + 1;
                     lua_pushinteger(L, nodeId);
-                    lua_rawseti(L, -2, lua_rawlen(L, -2) + 1);
+                    lua_rawseti(L, -2, idx++);
                 }
             }
         }
@@ -4980,6 +5093,48 @@ namespace LuaPlayer
 
         player->ApplyRatingMod(CombatRating(stat), value, apply);
         return 0;
+    }
+
+    /**
+     * Returns `true` if the [Player] knows the given taxi node, `false` otherwise.
+     *
+     * @param uint32 nodeId
+     * @return bool known
+     */
+    int HasKnownTaxiNode(lua_State* L, Player* player)
+    {
+        if (!player)
+        {
+            ALE::Push(L, false);
+            return 1;
+        }
+
+        uint32 nodeId = ALE::CHECKVAL<uint32>(L, 2);
+
+        if (nodeId == 0)
+        {
+            ALE::Push(L, false);
+            return 1;
+        }
+
+        ALE::Push(L, player->m_taxi.IsTaximaskNodeKnown(nodeId));
+        return 1;
+    }
+
+    /**
+     * Returns `true` if the [Player] is a Playerbot/RNDBot, `false` otherwise.
+     *
+     * @return bool isBot
+     */
+    int IsBot(lua_State* L, Player* player)
+    {
+    #if defined(MOD_PLAYERBOTS)
+        ALE::Push(L, player->GetSession()->IsBot());
+    #else
+        (void)player;
+        ALE::Push(L, false);
+    #endif
+        return 1;
     }
 };
 #endif
