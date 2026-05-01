@@ -19,7 +19,7 @@
 #        Default: 1,2,4 - active everywhere
 #
 
-EasyRespawn.Active = 1,2,4
+EasyRespawn.Active = 1,2
 
 #
 #    EasyRespawn.ResurrectPct
@@ -28,7 +28,7 @@ EasyRespawn.Active = 1,2,4
 #        Default: 1
 #
 
-EasyRespawn.ResurrectPct = 1
+EasyRespawn.ResurrectPct = 0.5
 
 #
 #    EasyRespawn.DisabledMapIds
@@ -49,7 +49,7 @@ EasyRespawn.DisabledMapIds =
 #              for some instances (for example ICC), so in this case if EasyRespawn.InstanceRespawnLocation is 2, the player will be resurrected inside the instance (acts as if it was set to 1).
 #
 
-EasyRespawn.InstanceRespawnLocation = 2
+EasyRespawn.InstanceRespawnLocation = 1
 
 #
 #    EasyRespawn.OpenWorldRespawnLocation
