@@ -878,7 +878,9 @@ void AuctionHouseBot::PopulateItemCandidatesAndProportions()
             itr->second.Name1.find("(") != std::string::npos ||
             itr->second.Name1.find("OLD") != std::string::npos ||
             itr->second.Name1.find("PVP") != std::string::npos ||
-			itr->second.Name1.find("NPC") != std::string::npos))
+			itr->second.Name1.find("NPC") != std::string::npos ||
+			itr->second.Name1.find("Npc") != std::string::npos ||
+			itr->second.Name1.find("npc") != std::string::npos))
         {
             if (debug_Out_Filters)
                 LOG_ERROR("module", "AuctionHouseBot: Item {} disabled item with a temp or unused item name", itr->second.ItemId);

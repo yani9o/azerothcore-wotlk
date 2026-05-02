@@ -748,7 +748,7 @@ public:
         return true;
     }
 
-    static bool HandleLevelUpCommand(ChatHandler* handler, Optional<PlayerIdentifier> player, int16 level)
+    static bool HandleLevelUpCommand(ChatHandler* handler, std::optional<int16> levelOpt, Optional<PlayerIdentifier> player)
     {
         if (!player)
             player = PlayerIdentifier::FromTargetOrSelf(handler);
@@ -757,7 +757,10 @@ public:
             return false;
 
         uint8 oldlevel = player->IsConnected() ? player->GetConnectedPlayer()->GetLevel() : sCharacterCache->GetCharacterLevelByGuid(player->GetGUID());
-        int16 newlevel = static_cast<int16>(oldlevel) + level;
+		
+		int16 change = levelOpt.has_value() ? levelOpt.value() : 1;
+		
+        int16 newlevel = static_cast<int16>(oldlevel) + change;
 
         if (newlevel < 1)
             newlevel = 1;

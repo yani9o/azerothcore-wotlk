@@ -236,10 +236,9 @@ public:
             targetPlayer = target->GetConnectedPlayer();
         }
         else
-        {
-            handler->SendErrorMessage(LANG_NO_CHAR_SELECTED);
-            return false;
-        }
+		{
+			targetPlayer = handler->GetSession() ? handler->GetSession()->GetPlayer() : nullptr;
+		}
 
         if (targetPlayer)
         {
