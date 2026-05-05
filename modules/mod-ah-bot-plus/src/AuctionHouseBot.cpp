@@ -867,25 +867,47 @@ void AuctionHouseBot::PopulateItemCandidatesAndProportions()
         }
 
         // Disable anything with the string literal of a testing or deprecated item
-        if (DisabledItemTextFilter == true && 
-            (itr->second.Name1.find("Test ") != std::string::npos ||
-            itr->second.Name1.find("TEST") != std::string::npos ||
-            itr->second.Name1.find("Deprecated") != std::string::npos ||
-            itr->second.Name1.find("Depricated") != std::string::npos ||
-            itr->second.Name1.find(" Epic ") != std::string::npos ||
-            itr->second.Name1.find("]") != std::string::npos ||            
-            itr->second.Name1.find("D'Sak") != std::string::npos ||
-            itr->second.Name1.find("(") != std::string::npos ||
-            itr->second.Name1.find("OLD") != std::string::npos ||
-            itr->second.Name1.find("PVP") != std::string::npos ||
-			itr->second.Name1.find("NPC") != std::string::npos ||
-			itr->second.Name1.find("Npc") != std::string::npos ||
-			itr->second.Name1.find("npc") != std::string::npos))
-        {
-            if (debug_Out_Filters)
-                LOG_ERROR("module", "AuctionHouseBot: Item {} disabled item with a temp or unused item name", itr->second.ItemId);
-            continue;
-        }
+        std::string nameEN = itr->second.Name1;
+		std::string nameDE;
+
+		ItemLocale const* localeData = sObjectMgr->GetItemLocale(itr->second.ItemId);
+		if (localeData)
+		{
+			nameDE = localeData->Name[LOCALE_deDE];
+		}
+		
+		if (debug_Out_Filters)
+			LOG_INFO("module", "AuctionHouseBot: Check Item [({}) {} / {}]", itr->second.ItemId, nameEN, nameDE);
+
+		// Helper lambda to check both names
+		auto contains = [&](std::string const& needle)
+		{
+			return (nameEN.find(needle) != std::string::npos) ||
+				   (!nameDE.empty() && nameDE.find(needle) != std::string::npos);
+		};
+
+		if (DisabledItemTextFilter == true && 
+			(contains("Test ") ||
+			 contains("TEST") ||
+			 contains("Deprecated") ||
+			 contains("Depricated") ||
+			 contains(" Epic ") ||
+			 contains("]") ||
+			 contains("D'Sak") ||
+			 contains("(") ||
+			 contains("OLD") ||
+			 contains("PVP") ||
+			 contains("NPC Equip")))
+		{
+			if (debug_Out_Filters)
+				LOG_ERROR("module",
+					"AuctionHouseBot: Item [({}) {} | DE: {}] disabled item with a temp or unused item name",
+					itr->second.ItemId,
+					nameEN,
+					nameDE.empty() ? "<none>" : nameDE);
+
+			continue;
+		}
 
         // Disabled crafted gems that start with "Perfect"
         if (itr->second.Class == ITEM_CLASS_GEM && itr->second.Name1.find("Perfect ") != std::string::npos)

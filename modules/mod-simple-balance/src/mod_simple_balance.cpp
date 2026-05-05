@@ -221,7 +221,8 @@ public:
 			damage = scaledDamage;
         }
 
-        if (!attackerIsPlayerSide && victimIsPlayerSide)
+		// removed: !attackerIsPlayerSide && 
+        if (victimIsPlayerSide)
         {
             float scale = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
             damage = uint32(damage * scale);
@@ -278,6 +279,33 @@ public:
             float scaleheal = (heal * scale) - heal;
 			target->ModifyHealth(uint32(scaleheal));
         }
+    }
+	
+	void ModifyAbsorbReceived(Unit* caster, int32& amount) override
+    {
+        if (!SimpleBalance::Enable || !caster || !amount || amount == 0)
+            return;
+
+        bool casterIsPlayerSide = SimpleBalance::IsPlayerOrPlayerPet(caster);
+
+        Map* map = caster->GetMap();
+        if (!map) return;
+
+        uint32 P = SimpleBalance::GetPlayersInInstance(map);
+        uint32 M = SimpleBalance::GetMaxPlayers(map);
+        if (P >= M) return;
+
+        float factor = SimpleBalance::GetFactor(map);
+        if (casterIsPlayerSide)
+        {
+            float scale = SimpleBalance::ScaleOutgoing(float(P), float(M), factor) / 100.0f;
+			amount = uint32(amount * scale);
+        }
+		else
+		{
+			float scale = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
+			amount = uint32(amount * scale);
+		}
     }
 };
 

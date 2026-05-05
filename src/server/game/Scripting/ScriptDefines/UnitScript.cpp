@@ -59,6 +59,11 @@ void ScriptMgr::ModifyHealReceived(Unit* target, Unit* healer, uint32& heal, Spe
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_HEAL_RECEIVED, script->ModifyHealReceived(target, healer, heal, spellInfo));
 }
 
+void ScriptMgr::ModifyAbsorbReceived(Unit* caster, int32& amount)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_ABSORB_RECEIVED, script->ModifyAbsorbReceived(caster, amount));
+}
+
 uint32 ScriptMgr::DealDamage(Unit* AttackerUnit, Unit* pVictim, uint32 damage, DamageEffectType damagetype)
 {
     if (ScriptRegistry<UnitScript>::ScriptPointerList.empty())
