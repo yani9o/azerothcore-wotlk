@@ -524,7 +524,6 @@ int32 AuraEffect::CalculateAmount(Unit* caster)
         case SPELL_AURA_SCHOOL_ABSORB:
         case SPELL_AURA_MANA_SHIELD:
             m_canBeRecalculated = false;
-			sScriptMgr->ModifyAbsorbReceived(caster,amount);
             break;
         case SPELL_AURA_MOD_DAMAGE_PERCENT_DONE:
             // Titan's Grip

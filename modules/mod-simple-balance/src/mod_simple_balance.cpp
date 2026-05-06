@@ -221,8 +221,7 @@ public:
 			damage = scaledDamage;
         }
 
-		// removed: !attackerIsPlayerSide && 
-        if (victimIsPlayerSide)
+        if (!attackerIsPlayerSide && victimIsPlayerSide)
         {
             float scale = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
             damage = uint32(damage * scale);
@@ -281,14 +280,12 @@ public:
         }
     }
 	
-	void ModifyAbsorbReceived(Unit* caster, int32& amount) override
+	void AbsorbScaling(Unit* attacker, Unit* victim, float& AbsorbScaling) override
     {
-        if (!SimpleBalance::Enable || !caster || !amount || amount == 0)
+		if (!SimpleBalance::Enable || !attacker || !victim || attacker == victim)
             return;
 
-        bool casterIsPlayerSide = SimpleBalance::IsPlayerOrPlayerPet(caster);
-
-        Map* map = caster->GetMap();
+        Map* map = attacker->GetMap();
         if (!map) return;
 
         uint32 P = SimpleBalance::GetPlayersInInstance(map);
@@ -296,17 +293,20 @@ public:
         if (P >= M) return;
 
         float factor = SimpleBalance::GetFactor(map);
-        if (casterIsPlayerSide)
-        {
-            float scale = SimpleBalance::ScaleOutgoing(float(P), float(M), factor) / 100.0f;
-			amount = uint32(amount * scale);
+        bool attackerIsPlayerSide = SimpleBalance::IsPlayerOrPlayerPet(attacker);
+        bool victimIsPlayerSide   = SimpleBalance::IsPlayerOrPlayerPet(victim);
+
+        if ((attackerIsPlayerSide && !victimIsPlayerSide) || SimpleBalance::IsForcedNPC(victim))
+        {	
+            AbsorbScaling = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
         }
-		else
-		{
-			float scale = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
-			amount = uint32(amount * scale);
-		}
-    }
+
+        if (!attackerIsPlayerSide && victimIsPlayerSide)
+        {
+            AbsorbScaling = SimpleBalance::ScaleOutgoing(float(P), float(M), factor) / 100.0f;
+        }
+		
+	}
 };
 
 // ------------------- PlayerScript (XP Normalization) -------------------

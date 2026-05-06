@@ -26,12 +26,12 @@ enum UnitHook
     UNITHOOK_ON_HEAL,
 	UNITHOOK_AFTER_HEAL,
     UNITHOOK_ON_DAMAGE,
+    UNITHOOK_ABSORB_SCALING,
 	UNITHOOK_AFTER_DAMAGE,
     UNITHOOK_MODIFY_PERIODIC_DAMAGE_AURAS_TICK,
     UNITHOOK_MODIFY_MELEE_DAMAGE,
     UNITHOOK_MODIFY_SPELL_DAMAGE_TAKEN,
     UNITHOOK_MODIFY_HEAL_RECEIVED,
-    UNITHOOK_MODIFY_ABSORB_RECEIVED,
     UNITHOOK_ON_BEFORE_ROLL_MELEE_OUTCOME_AGAINST,
     UNITHOOK_ON_AURA_APPLY,
     UNITHOOK_ON_AURA_REMOVE,
@@ -68,6 +68,9 @@ public:
     // Called when a unit deals damage to another unit
     virtual void OnDamage(Unit* /*attacker*/, Unit* /*victim*/, uint32& /*damage*/) { }
 
+    // Called when a unit deals damage to another unit
+    virtual void AbsorbScaling(Unit* /*attacker*/, Unit* /*victim*/, float& /*AbsorbScaling*/) { }
+
     // Called at the end of DealDamage()
     virtual void AfterDamage(Unit* /*attacker*/, Unit* /*victim*/, uint32& /*damage*/) { }
 
@@ -83,9 +86,6 @@ public:
 
     // Called when Heal is Recieved
     virtual void ModifyHealReceived(Unit* /*target*/, Unit* /*healer*/, uint32& /*heal*/, SpellInfo const* /*spellInfo*/) { }
-
-    // Called when Absorb Shield is Recieved
-    virtual void ModifyAbsorbReceived(Unit* /*caster*/, int32& /*amount*/) { }
 
     //Called when Damage is Dealt
     virtual uint32 DealDamage(Unit* /*AttackerUnit*/, Unit* /*pVictim*/, uint32 damage, DamageEffectType /*damagetype*/) { return damage; }

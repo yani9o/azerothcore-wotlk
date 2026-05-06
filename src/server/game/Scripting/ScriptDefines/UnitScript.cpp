@@ -34,6 +34,11 @@ void ScriptMgr::OnDamage(Unit* attacker, Unit* victim, uint32& damage)
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ON_DAMAGE, script->OnDamage(attacker, victim, damage));
 }
 
+void ScriptMgr::AbsorbScaling(Unit* attacker, Unit* victim, float& AbsorbScaling)
+{
+    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_ABSORB_SCALING, script->AbsorbScaling(attacker, victim, AbsorbScaling));
+}
+
 void ScriptMgr::AfterDamage(Unit* attacker, Unit* victim, uint32& damage)
 {
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_AFTER_DAMAGE, script->AfterDamage(attacker, victim, damage));
@@ -57,11 +62,6 @@ void ScriptMgr::ModifySpellDamageTaken(Unit* target, Unit* attacker, int32& dama
 void ScriptMgr::ModifyHealReceived(Unit* target, Unit* healer, uint32& heal, SpellInfo const* spellInfo)
 {
     CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_HEAL_RECEIVED, script->ModifyHealReceived(target, healer, heal, spellInfo));
-}
-
-void ScriptMgr::ModifyAbsorbReceived(Unit* caster, int32& amount)
-{
-    CALL_ENABLED_HOOKS(UnitScript, UNITHOOK_MODIFY_ABSORB_RECEIVED, script->ModifyAbsorbReceived(caster, amount));
 }
 
 uint32 ScriptMgr::DealDamage(Unit* AttackerUnit, Unit* pVictim, uint32 damage, DamageEffectType damagetype)
