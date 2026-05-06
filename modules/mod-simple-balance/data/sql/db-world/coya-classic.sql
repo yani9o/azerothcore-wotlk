@@ -41,7 +41,9 @@ UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (22570,33763,33745
 -- Hunter
 UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (34600,53351,62757,60192);
 UPDATE `trainer_spell` SET `ReqLevel` = 14 WHERE `SpellId` IN (34026);
+UPDATE `trainer_spell` SET `MoneyCost` = 1200 WHERE `SpellId` = 34026;
 UPDATE `trainer_spell` SET `ReqLevel` = 40 WHERE `SpellId` IN (34477);
+UPDATE `trainer_spell` SET `MoneyCost` = 18000 WHERE `SpellId` = 34477;
 
 -- Mage
 UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (25306,30482,30451,30455,66,43987,30449,44614,55342);
@@ -53,6 +55,7 @@ UPDATE `trainer_spell` SET `MoneyCost` = 100000 WHERE `SpellId` = 31801;
 -- Priest
 UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (32379,32546,34433,33076,32375,64843,64901);
 UPDATE `trainer_spell` SET `ReqLevel` = 40 WHERE `SpellId` IN (48045);
+UPDATE `trainer_spell` SET `MoneyCost` = 18000 WHERE `SpellId` = 48045;
 
 -- Rogue
 UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (32645,26679,31224,57934);
@@ -65,3 +68,6 @@ UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (28176,29722,29858
 
 -- Warrior
 UPDATE `trainer_spell` SET `ReqLevel` = 60 WHERE `SpellId` IN (23920,469,3411,64382,55694,57755);
+
+-- Set all Glyphs >60 to 60
+UPDATE `item_template` SET `RequiredLevel` = 60 WHERE `class` = 16 AND `RequiredLevel` > 60;
