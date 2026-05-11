@@ -731,16 +731,16 @@ void LevelBoost::GetRaceMount(Player* player)
 	if ( player->getClass() == CLASS_PALADIN )
 	{
 		uint32 palaMountN = 13819;
-		uint32 palaMountE = 23214;
+		// uint32 palaMountE = 23214;
 		
 		if (player->GetTeamId() == TEAM_HORDE)
 		{
 				palaMountN = 34769;
-				palaMountE = 34767;
+				// palaMountE = 34767;
 		}
 		
 		player->learnSpell(palaMountN);
-		player->learnSpell(palaMountE);
+		// player->learnSpell(palaMountE);
 	}
 	
 }
