@@ -45,4 +45,5 @@ DELETE FROM `npc_vendor` WHERE `entry` BETWEEN @Entry AND @Entry+45;
 INSERT INTO `npc_vendor` (`entry`, `item`) VALUES
 (@Entry+45, 60000); -- Resource Container
 
-UPDATE item_template SET stackable = 200 WHERE stackable > 1 AND stackable < 200;
+-- Warchief's Blessing for everyone
+DELETE FROM `conditions` WHERE `SourceEntry` = 16609 AND (`ConditionTypeOrReference` = 5 OR `ConditionTypeOrReference` = 6);

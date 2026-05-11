@@ -137,7 +137,11 @@ enum
 #define GOSSIP_INSTANCES_RAID_RESET "Alle Schlachtzüge wurden zurückgesetzt."
 #define GOSSIP_INSTANCES_RAID_GROUP_RESET "Alle Schlachtzüge deiner Gruppe wurden zurückgesetzt."
 
-#define GOSSIP_RAIDBUFF "Segen erhalten"
+#define GOSSIP_BUFF "Raidbuffs erhalten"
+#define GOSSIP_RAIDBUFF "Raidbuffs erhalten"
+#define GOSSIP_RAIDBUFF_DRAGONSLAYER "Schlachtruf der Drachentöter"
+#define GOSSIP_RAIDBUFF_WARCHIEF "Segen des Kriegshäuptlings"
+#define GOSSIP_CUSTOMBUFF "Segen erhalten"
 
 #define GOSSIP_CONTINUE_TRANSACTION "Möchtest du fortfahren?"
 #define GOSSIP_PREVIOUS_PAGE "Zurück"
@@ -214,6 +218,11 @@ private:
 	// Raidbuff
 	bool RaidbuffEnabled;
 	uint32 RaidbuffCost;
+	
+	// Custombuff
+	bool CustombuffEnabled;
+	uint32 CustombuffSpellId;
+	uint32 CustombuffCost;
 
     bool CanResetInstances(Player* /*player*/);
     bool HasSavedInstances(Player* /*player*/, uint8 /*type*/);

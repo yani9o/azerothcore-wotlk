@@ -8,4 +8,4 @@
 TrackResource.Enable = 1
 
 # SpellId of the Tracking Skill
-TrackResource.TrackId = 90006
+TrackResource.TrackId = 190006

@@ -5,12 +5,12 @@
 namespace TrackResourceConfig
 {
     bool Enable    = true;
-    uint32 TrackId = 90006;
+    uint32 TrackId = 190006;
 
     void Load()
     {
         Enable  = sConfigMgr->GetOption<bool>("TrackResource.Enable", true);
-        TrackId = sConfigMgr->GetOption<uint32>("TrackResource.TrackId", 90006);
+        TrackId = sConfigMgr->GetOption<uint32>("TrackResource.TrackId", 190006);
     }
 }
 

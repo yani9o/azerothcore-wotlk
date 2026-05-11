@@ -95,13 +95,16 @@ Assistant.Instances.Raid.Cost       = 10000000
 
 #################################
 #
-# Enable Zandalar Raidbuff via Assistant NPC
+# Enable Raidbuffs/Custombuff via Assistant NPC
 # Default: 1 (enabled)
 # The cost is set in copper
 # It is free if cost is set to 0
 #
 
-Assistant.Raidbuff.Enabled = 1
-Assistant.Raidbuff.Cost    = 100000
+Assistant.Raidbuff.Enabled   = 1
+Assistant.Raidbuff.Cost      = 100000
+Assistant.Custombuff.Enabled = 1
+Assistant.Custombuff.SpellId = 90000
+Assistant.Custombuff.Cost    = 1000000
 
 #################################

@@ -125,7 +125,8 @@ struct boss_jindo : public BossAI
             switch (eventId)
             {
             case EVENT_BRAIN_WASH_TOTEM:
-                DoCastSelf(SPELL_BRAIN_WASH_TOTEM);
+				if (me->GetThreatMgr().GetThreatListSize() > 2)
+					DoCastSelf(SPELL_BRAIN_WASH_TOTEM);
                 events.ScheduleEvent(EVENT_BRAIN_WASH_TOTEM, 18s, 26s);
                 break;
             case EVENT_POWERFULL_HEALING_WARD:

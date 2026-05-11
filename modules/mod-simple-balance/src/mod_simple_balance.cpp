@@ -192,10 +192,10 @@ public:
 
     void OnDamage(Unit* attacker, Unit* victim, uint32& damage) override
     {
-        if (!SimpleBalance::Enable || !attacker || !victim || attacker == victim || damage == 0)
+        if (!SimpleBalance::Enable || !victim || damage == 0)
             return;
 
-        Map* map = attacker->GetMap();
+        Map* map = victim->GetMap();
         if (!map) return;
 
         uint32 P = SimpleBalance::GetPlayersInInstance(map);
@@ -203,10 +203,10 @@ public:
         if (P >= M) return;
 
         float factor = SimpleBalance::GetFactor(map);
-        bool attackerIsPlayerSide = SimpleBalance::IsPlayerOrPlayerPet(attacker);
+        bool attackerIsPlayerSide = attacker && SimpleBalance::IsPlayerOrPlayerPet(attacker);
         bool victimIsPlayerSide   = SimpleBalance::IsPlayerOrPlayerPet(victim);
 
-        if ((attackerIsPlayerSide && !victimIsPlayerSide) || SimpleBalance::IsForcedNPC(victim))
+        if (!victimIsPlayerSide || SimpleBalance::IsForcedNPC(victim))
         {
 			
 			if (damage >= victim->GetHealth())
@@ -221,7 +221,7 @@ public:
 			damage = scaledDamage;
         }
 
-        if (!attackerIsPlayerSide && victimIsPlayerSide)
+        if (victimIsPlayerSide)
         {
             float scale = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
             damage = uint32(damage * scale);
@@ -282,10 +282,10 @@ public:
 	
 	void AbsorbScaling(Unit* attacker, Unit* victim, float& AbsorbScaling) override
     {
-		if (!SimpleBalance::Enable || !attacker || !victim || attacker == victim)
+		if (!SimpleBalance::Enable || !victim)
             return;
 
-        Map* map = attacker->GetMap();
+        Map* map = victim->GetMap();
         if (!map) return;
 
         uint32 P = SimpleBalance::GetPlayersInInstance(map);
@@ -293,15 +293,15 @@ public:
         if (P >= M) return;
 
         float factor = SimpleBalance::GetFactor(map);
-        bool attackerIsPlayerSide = SimpleBalance::IsPlayerOrPlayerPet(attacker);
+        bool attackerIsPlayerSide = attacker && SimpleBalance::IsPlayerOrPlayerPet(attacker);
         bool victimIsPlayerSide   = SimpleBalance::IsPlayerOrPlayerPet(victim);
 
-        if ((attackerIsPlayerSide && !victimIsPlayerSide) || SimpleBalance::IsForcedNPC(victim))
+        if (!victimIsPlayerSide || SimpleBalance::IsForcedNPC(victim))
         {	
             AbsorbScaling = SimpleBalance::ScaleIncoming(float(P), float(M), factor) / 100.0f;
         }
 
-        if (!attackerIsPlayerSide && victimIsPlayerSide)
+        if (victimIsPlayerSide)
         {
             AbsorbScaling = SimpleBalance::ScaleOutgoing(float(P), float(M), factor) / 100.0f;
         }

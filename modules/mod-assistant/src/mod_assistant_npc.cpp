@@ -54,9 +54,9 @@ bool Assistant::OnGossipHello(Player* player, Creature* creature)
         AddGossipItemFor(player, GOSSIP_ICON_CHAT, GOSSIP_PROFESSIONS, GOSSIP_SENDER_MAIN, ASSISTANT_GOSSIP_PROFESSIONS);
     }
 	
-	if (RaidbuffEnabled)
+	if (RaidbuffEnabled || CustombuffEnabled)
 	{
-		AddGossipItemFor(player, GOSSIP_ICON_VENDOR, GOSSIP_RAIDBUFF, GOSSIP_SENDER_MAIN, ASSISTANT_GOSSIP_RAIDBUFF + 1, GOSSIP_CONTINUE_TRANSACTION, RaidbuffCost, false);
+		AddGossipItemFor(player, GOSSIP_ICON_CHAT, GOSSIP_RAIDBUFF, GOSSIP_SENDER_MAIN, ASSISTANT_GOSSIP_RAIDBUFF);
 	}
 
     if (CanResetInstances(player))
@@ -540,11 +540,41 @@ bool Assistant::OnGossipSelect(Player* player, Creature* creature, uint32 sender
 
         OnGossipSelect(player, creature, GOSSIP_SENDER_MAIN, 1);
     }
-	else if (action == ASSISTANT_GOSSIP_RAIDBUFF + 1)
+	else if (action == ASSISTANT_GOSSIP_RAIDBUFF)
 	{
-		player->CastSpell(player, 90000, true);
-		player->ModifyMoney(-RaidbuffCost);
-		OnGossipSelect(player, creature, GOSSIP_SENDER_MAIN, 1);
+		ClearGossipMenuFor(player);
+		
+		if (RaidbuffEnabled)
+		{
+			AddGossipItemFor(player, GOSSIP_ICON_VENDOR, GOSSIP_RAIDBUFF_DRAGONSLAYER, GOSSIP_SENDER_MAIN, ASSISTANT_GOSSIP_RAIDBUFF + 1, GOSSIP_CONTINUE_TRANSACTION, RaidbuffCost, false);
+			AddGossipItemFor(player, GOSSIP_ICON_VENDOR, GOSSIP_RAIDBUFF_WARCHIEF, GOSSIP_SENDER_MAIN, ASSISTANT_GOSSIP_RAIDBUFF + 2, GOSSIP_CONTINUE_TRANSACTION, RaidbuffCost, false);
+		}
+		
+		if (CustombuffEnabled)
+		{
+			AddGossipItemFor(player, GOSSIP_ICON_VENDOR, GOSSIP_CUSTOMBUFF, GOSSIP_SENDER_MAIN, ASSISTANT_GOSSIP_RAIDBUFF + 10, GOSSIP_CONTINUE_TRANSACTION, CustombuffCost, false);
+		}
+		AddGossipItemFor(player, GOSSIP_ICON_CHAT, GOSSIP_PREVIOUS_PAGE, GOSSIP_SENDER_MAIN, 1);
+		SendGossipMenuFor(player, ASSISTANT_GOSSIP_TEXT, creature->GetGUID());
+	}
+	else if (action >= ASSISTANT_GOSSIP_RAIDBUFF + 1 && action <= ASSISTANT_GOSSIP_RAIDBUFF + 10)
+	{
+		if (action == ASSISTANT_GOSSIP_RAIDBUFF + 1)
+		{
+			player->CastSpell(player, 22888, true);
+			player->ModifyMoney(-RaidbuffCost);
+		}
+		if (action == ASSISTANT_GOSSIP_RAIDBUFF + 2)
+		{
+			player->CastSpell(player, 16609, true);
+			player->ModifyMoney(-RaidbuffCost);
+		}
+		if (action == ASSISTANT_GOSSIP_RAIDBUFF + 10)
+		{
+			player->CastSpell(player, CustombuffSpellId, true);
+			player->ModifyMoney(-CustombuffCost);
+		}
+		SendGossipMenuFor(player, ASSISTANT_GOSSIP_TEXT, creature->GetGUID());
 	}
 
     return true;

@@ -5,7 +5,7 @@
 
 enum Spells
 {
-    SPELL_EXHILARATION_PET = 90005
+    SPELL_EXHILARATION_PET = 190005
 };
 
 class spell_hunter_exhilaration : public SpellScript

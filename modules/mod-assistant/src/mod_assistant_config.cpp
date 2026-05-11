@@ -52,5 +52,10 @@ void Assistant::OnAfterConfigLoad(bool /*reload*/)
 	// Raidbuff
 	RaidbuffEnabled = sConfigMgr->GetOption<bool>("Assistant.Raidbuff.Enabled", 1);
 	RaidbuffCost = sConfigMgr->GetOption<uint32>("Assistant.Raidbuff.Cost", 100000);
+	
+	// Custombuff
+	CustombuffEnabled = sConfigMgr->GetOption<uint32>("Assistant.Custombuff.Enabled", 0);
+	CustombuffSpellId = sConfigMgr->GetOption<uint32>("Assistant.Custombuff.SpellId", 1000000);
+	CustombuffCost = sConfigMgr->GetOption<uint32>("Assistant.Custombuff.Cost", 1000000);
 
 }

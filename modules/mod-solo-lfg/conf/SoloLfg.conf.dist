@@ -19,6 +19,13 @@ SoloLFG.Enable = 1
 
 SoloLFG.Announce = 0
 
+#    SoloLFG.RandomEnabled
+#        Description: Random dungeons can be disabled this way, so only specific dungeons are possible.
+#        Default:     1  - (Enabled)
+#                     0  - (Disabled)
+
+SoloLFG.RandomEnabled = 1
+
 #    SoloLFG.AchievementCheck
 #        Description: If someone in the group has to have the dungeon achievement (only if <5 players)
 #        Default:     1  - (Enabled)

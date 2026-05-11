@@ -139,30 +139,39 @@ public:
             // --- POOL CHECK (Random Dungeons 258-262) ---
             if (dungeonId >= 258 && dungeonId <= 262)
             {
-                for (uint32 i = 0; i < sLFGDungeonStore.GetNumRows(); ++i)
-                {
-                    LFGDungeonEntry const* innerEntry = sLFGDungeonStore.LookupEntry(i);
-                    if (!innerEntry || (innerEntry->ID >= 258 && innerEntry->ID <= 262))
-                        continue;
+				if (sConfigMgr->GetOption<bool>("SoloLFG.RandomEnabled", true))
+				{
+					for (uint32 i = 0; i < sLFGDungeonStore.GetNumRows(); ++i)
+					{
+						LFGDungeonEntry const* innerEntry = sLFGDungeonStore.LookupEntry(i);
+						if (!innerEntry || (innerEntry->ID >= 258 && innerEntry->ID <= 262))
+							continue;
 
-                    if (pLevel >= innerEntry->MinLevel && pLevel <= innerEntry->MaxLevel)
-                    {
-                        bool matchesExpansion = false;
-                        if (dungeonId == 258 && innerEntry->ID < 100) matchesExpansion = true;
-						if (dungeonId == 259 && (innerEntry->ID >= 135 && innerEntry->ID <= 175)) matchesExpansion = true;
-                        if (dungeonId == 260 && innerEntry->ID > 200) matchesExpansion = true;
+						if (pLevel >= innerEntry->MinLevel && pLevel <= innerEntry->MaxLevel)
+						{
+							bool matchesExpansion = false;
+							if (dungeonId == 258 && innerEntry->ID < 100) matchesExpansion = true;
+							if (dungeonId == 259 && (innerEntry->ID >= 135 && innerEntry->ID <= 175)) matchesExpansion = true;
+							if (dungeonId == 260 && innerEntry->ID > 200) matchesExpansion = true;
 
-                        if (matchesExpansion || dungeonId == 261)
-                        {
-                            if (IsDungeonLocked(player, group, innerEntry->ID, missingBoss))
-                            {
-                                std::string msg = "Fortschritt für Zufällige Dungeons fehlt: |cffff0000" + missingBoss + "|r";
-                                ChatHandler(player->GetSession()).SendSysMessage(msg.c_str());
-                                return false;
-                            }
-                        }
-                    }
-                }
+							if (matchesExpansion || dungeonId == 261)
+							{
+								if (IsDungeonLocked(player, group, innerEntry->ID, missingBoss))
+								{
+									std::string msg = "Fortschritt für Zufällige Dungeons fehlt: |cffff0000" + missingBoss + "|r";
+									ChatHandler(player->GetSession()).SendSysMessage(msg.c_str());
+									return false;
+								}
+							}
+						}
+					}
+				}
+				else
+				{
+					std::string msg = "Random Dungeons sind deaktiviert.|r";
+					ChatHandler(player->GetSession()).SendSysMessage(msg.c_str());
+					return false;
+				}
             }
             // --- SPECIFIC CHECK ---
             else if (IsDungeonLocked(player, group, dungeonId, missingBoss))
