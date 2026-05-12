@@ -22,6 +22,15 @@ LevelBoost.Enable = 1
 LearnSpells.Enable = 1
 
 #
+#    LearnEpicMount.Enable
+#        Description: Allows the boosted character to automatically learn an epic Mount and Riding skill.
+#        Default:     1 - Enabled
+#                     0 - Disabled
+#
+
+LearnEpicMount.Enable = 0
+
+#
 #    LearnProficiencies.Enable
 #        Description: Grants the character class-specific weapon and armor proficiencies when they receive the level boost.
 #        Default:     1 - Enabled
