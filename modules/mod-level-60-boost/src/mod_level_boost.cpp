@@ -485,7 +485,7 @@ void LevelBoost::HandleBoost(Player* player, Creature* creature, const std::stri
 
 	LearnDualSpec(player);
 	LearnSpellsForLevel(player);
-	GetRaceMount(player);
+	GetMount(player);
 	LearnProficienciesForLevel(player);
 	AddClassItems(player);
 	
@@ -683,65 +683,59 @@ void LevelBoost::HandleDeathKnight(Player* player)
 	
 }
 
-void LevelBoost::GetRaceMount(Player* player)
+void LevelBoost::GetMount(Player* player)
 {
-	uint32 mountSpellId = 0;
-	switch (player->getRace())
+
+	if (!player->HasSpell(75614))
 	{
-		case RACE_HUMAN:
-			mountSpellId = 23229;
-			break;
-		case RACE_DWARF:
-			mountSpellId = 23238;
-			break;
-		case RACE_NIGHTELF:
-			mountSpellId = 23221;
-			break;
-		case RACE_GNOME:
-			mountSpellId = 23225;
-			break;
-		case RACE_DRAENEI:
-			mountSpellId = 35713;
-			break;
-		case RACE_ORC:
-			mountSpellId = 23250;
-			break;
-		case RACE_UNDEAD_PLAYER:
-			mountSpellId = 17465;
-			break;
-		case RACE_TAUREN:
-			mountSpellId = 23249;
-			break;
-		case RACE_TROLL:
-			mountSpellId = 23241;
-			break;
-		case RACE_BLOODELF:
-			mountSpellId = 35025;
-			break;
-		default:
-			mountSpellId = 0;
-			break;
+		if (!player->HasSpell(33388))
+			player->learnSpell(33388);
+		player->learnSpell(75614);
 	}
 	
-	if (!player->HasSpell(mountSpellId) && mountSpellId > 0)
+	if (!player->HasSpell(33391) && learnEpicMount)
 	{
-		player->learnSpell(mountSpellId);
+		player->learnSpell(33391);
 	}
 	
-	if ( player->getClass() == CLASS_PALADIN )
+	uint32 classMountN = 0;
+	uint32 classMountE = 0;
+	
+	if (player->getClass() == CLASS_PALADIN)
 	{
-		uint32 palaMountN = 13819;
-		// uint32 palaMountE = 23214;
 		
+		classMountN = 1661;
+		classMountE = 7647;
+			
 		if (player->GetTeamId() == TEAM_HORDE)
 		{
-				palaMountN = 34769;
-				// palaMountE = 34767;
+			classMountN = 9712;
+			classMountE = 9737;
 		}
 		
-		player->learnSpell(palaMountN);
-		// player->learnSpell(palaMountE);
 	}
+	
+	if ( player->getClass() == CLASS_WARLOCK)
+	{
+		classMountN = 4490;
+		classMountE = 7631;
+	}
+	
+	int32 playerMoney = player->GetMoney();
+		
+	if (!player->HasSpell(classMountN) && classMountN > 0)
+	{
+		player->AddQuest(sObjectMgr->GetQuestTemplate(classMountN), nullptr);
+		player->RewardQuest(sObjectMgr->GetQuestTemplate(classMountN), 0, player, false);
+	}
+	
+	if (!player->HasSpell(classMountE) && classMountE > 0 && learnEpicMount)
+	{
+		player->AddQuest(sObjectMgr->GetQuestTemplate(classMountE), nullptr);
+		player->RewardQuest(sObjectMgr->GetQuestTemplate(classMountE), 0, player, false);
+	}
+	
+	player->SetMoney(playerMoney);
 	
 }
 
@@ -1198,6 +1192,7 @@ public:
 		sLevelBoost->levelBoost = sConfigMgr->GetOption<bool>("LevelBoost.Enable", true);
 		sLevelBoost->dualSpec = sConfigMgr->GetOption<bool>("DualSpec.Enable", true);
 		sLevelBoost->learnSpells = sConfigMgr->GetOption<bool>("LearnSpells.Enable", true);
+		sLevelBoost->learnEpicMount = sConfigMgr->GetOption<bool>("LearnEpicMount.Enable", true);
 		sLevelBoost->learnProficiencies = sConfigMgr->GetOption<bool>("LearnProficiencies.Enable", true);
 		sLevelBoost->learnTalents = sConfigMgr->GetOption<bool>("LearnTalents.Enable", true);
 		sLevelBoost->learnGlyphs = sConfigMgr->GetOption<bool>("LearnGlyphs.Enable", true);
