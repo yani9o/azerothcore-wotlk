@@ -3,16 +3,16 @@
 -- ##########################################
 
 -- Riding Turtle for all new Characters
-INSERT INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) 
+REPLACE INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) 
 VALUES (0, 0, 30174, 'Custom - Riding Turtle');
 
 -- Remove Hearthstone Cooldown
-INSERT IGNORE INTO spell_cooldown_overrides (Id, RecoveryTime, CategoryRecoveryTime, StartRecoveryTime, StartRecoveryCategory, COMMENT) VALUES 
+REPLACE INTO spell_cooldown_overrides (Id, RecoveryTime, CategoryRecoveryTime, StartRecoveryTime, StartRecoveryCategory, COMMENT) VALUES 
 (8690, 600000, 600000, 0, 0, 'Custom - Hearthstone'),
 (75136, 600000, 600000, 0, 0, 'Custom - Ethereal Portal');
 
 -- Mailboxes in Starting Zones
-INSERT IGNORE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES 
+REPLACE  INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`, `phaseMask`, `position_x`, `position_y`, `position_z`, `orientation`, `rotation0`, `rotation1`, `rotation2`, `rotation3`, `spawntimesecs`, `animprogress`, `state`, `ScriptName`, `VerifiedBuild`, `Comment`) VALUES 
 (2135588, 142109, 1, 0, 0, 1, 1, 10400.9, 742.073, 1319.55, 3.70602, 0, 0, -0.960441, 0.278484, 300, 0, 1, '', NULL, 'Custom - Starter Mailbox'),
 (2135589, 142102, 0, 0, 0, 1, 1, -6167.81, 375.605, 399.023, 3.14031, 0, 0, -1, -0.000638918, 300, 0, 1, '', NULL, 'Custom - Starter Mailbox'),
 (2135590, 142075, 0, 0, 0, 1, 1, -8923.91, -136.852, 80.9728, 1.93871, 0, 0, -0.82452, -0.565832, 300, 0, 1, '', NULL, 'Custom - Starter Mailbox'),
@@ -29,7 +29,7 @@ UPDATE gossip_menu_option SET `BoxMoney` = 100000 WHERE BoxText LIKE "%Dual Tale
 UPDATE item_template SET stackable = 200 WHERE stackable > 1 AND stackable < 200;
 
 -- Echeyakee for Alliance
-INSERT IGNORE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
+REPLACE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
 (5828, 10327, 0, 20, 0, 1, 0, 1, 1, 'Custom -  Humar, Horn of Echeyakee'),
 (5831, 10327, 0, 100, 0, 1, 0, 1, 1, 'Custom - Swiftmane, Horn of Echeyakee'),
 (3241, 10327, 0, 1, 0, 1, 0, 1, 1, 'Custom - Savannah Patriarch, Horn of Echeyakee'),
@@ -204,7 +204,7 @@ DELETE FROM `gameobject` WHERE `id` IN (500008,500009,201797) AND `Comment` = 'C
 DELETE FROM `areatrigger_teleport` WHERE `ID` IN (4352,4354);
 
 -- Disable Dark Portal Quest
-INSERT IGNORE INTO `disables` (`sourceType`, `entry`, `flags`, `comment`) VALUES 
+REPLACE INTO `disables` (`sourceType`, `entry`, `flags`, `comment`) VALUES 
 (1, 9407, 0, 'Custom - Deactivate Dark Portal Quest'),
 (1, 10119, 0, 'Custom - Deactivate Dark Portal Quest');
 
