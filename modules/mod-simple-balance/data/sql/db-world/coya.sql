@@ -30,8 +30,6 @@ UPDATE item_template SET stackable = 200 WHERE stackable > 1 AND stackable < 200
 
 -- Echeyakee for Alliance
 REPLACE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
-(5828, 10327, 0, 20, 0, 1, 0, 1, 1, 'Custom -  Humar, Horn of Echeyakee'),
-(5831, 10327, 0, 100, 0, 1, 0, 1, 1, 'Custom - Swiftmane, Horn of Echeyakee'),
 (3241, 10327, 0, 1, 0, 1, 0, 1, 1, 'Custom - Savannah Patriarch, Horn of Echeyakee'),
 (3416, 10327, 0, 1, 0, 1, 0, 1, 1, 'Custom - Savannah Matriarch, Horn of Echeyakee');
 
