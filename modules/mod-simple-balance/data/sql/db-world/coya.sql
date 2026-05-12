@@ -3,8 +3,10 @@
 -- ##########################################
 
 -- Riding Turtle for all new Characters
-REPLACE INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) 
-VALUES (0, 0, 30174, 'Custom - Riding Turtle');
+REPLACE INTO `playercreateinfo_item` (`race`, `class`, `itemid`, `amount`, `Note`)
+VALUES (0, 0, 23720, 1, 'Custom - Riding Turtle');
+
+UPDATE `Item_template` SET `RequiredLevel` = 0 WHERE `entry` = 23720;
 
 -- Set Hearthstone Cooldown to 10 Minutes
 REPLACE INTO `spell_cooldown_overrides` (`Id`, `RecoveryTime`, `CategoryRecoveryTime`, `StartRecoveryTime`, `StartRecoveryCategory`, `COMMENT`) VALUES 
@@ -23,10 +25,10 @@ REPLACE INTO `gameobject` (`guid`, `id`, `map`, `zoneId`, `areaId`, `spawnMask`,
 (2135595, 182359, 530, 0, 0, 1, 1, 10340.4, -6374.57, 35.5764, 1.84933, 0, 0, -0.798421, -0.6021, 300, 0, 1, '', NULL, 'Custom - Starter Mailbox');
 
 -- Set DualSpec to 10g
-UPDATE gossip_menu_option SET `BoxMoney` = 100000 WHERE BoxText LIKE "%Dual Talent%";
+UPDATE `gossip_menu_option` SET `BoxMoney` = 100000 WHERE `BoxText` LIKE "%Dual Talent%";
 
 -- Itemstacks to 200
-UPDATE item_template SET stackable = 200 WHERE stackable > 1 AND stackable < 200;
+UPDATE `item_template` SET `stackable` = 200 WHERE `stackable` > 1 AND `stackable` < 200;
 
 -- Echeyakee for Alliance
 REPLACE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
@@ -225,9 +227,11 @@ UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId
 
 -- Hunter
 UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (34600,53351,62757,60192);
+UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000, `ReqAbility1` = 25296, `ReqAbility2` = 13163 WHERE `SpellId` = 61846;
 
 -- Mage
-UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (30482,30451,30455,66,43987,30449,44614,55342);
+UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (30482,30451,30455,66,30449,44614,55342);
+UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000, `ReqAbility1` = 10140, `ReqAbility2` = 28612 WHERE `SpellId` = 43987;
 UPDATE `gameobject_template` SET `Data0` = 1 WHERE `entry`= 186811; -- Ritual of Refreshment: Solo possible
 
 -- Paladin
@@ -243,13 +247,17 @@ UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId
 UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (3738,2062,2894,2825,51505,51514,32182);
 
 -- Warlock
-UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (28176,29722,29858,29893,27243,47897,48018,48020);
+UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (28176,29722,29858,27243,47897,48018,48020);
+UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000, `ReqAbility1` = 11730 WHERE `SpellId` = 29893;
 UPDATE `gameobject_template` SET `Data0` = 1 WHERE `entry`= 194108; -- Ritual of Summoning: Solo possible
 UPDATE `gameobject_template` SET `Data0` = 2 WHERE `entry` = 181622; -- Ritual of Souls: Possible with another player
 UPDATE `gameobject_template` SET `Data0` = 11730 WHERE `entry` = 181621; -- Reduce Rank of Soulstone provided by Ritual of Souls
 
 -- Warrior
 UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId` IN (23920,469,3411,64382,55694,57755);
+
+-- Delete all spells above 60
+DELETE FROM `trainer_spell` WHERE `ReqLevel` > 60;
 
 
 

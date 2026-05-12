@@ -339,7 +339,7 @@ void LevelBoost::CreateHunterPet(Player* player, Creature* creature, uint32 entr
 
 	hunterPet->GetMap()->AddToMap(hunterPet->ToCreature());
 	hunterPet->UpdateAllStats();
-	hunterPet->SetLevel(player->GetLevel() - 1);
+	hunterPet->SetLevel(player->GetLevel());
 
 	player->SetMinion(hunterPet, true);
 
@@ -500,16 +500,20 @@ void LevelBoost::HandleBoost(Player* player, Creature* creature, const std::stri
 
 	if (player->GetTeamId() == TEAM_ALLIANCE)
 	{
-		player->TeleportTo(0, -8833.37f, 628.62f, 94.00f, 1.06f); //Stormwind
+		player->SetMapId(0);
+		player->Relocate(-8833.37f, 628.62f, 94.00f, 1.06f); //Stormwind
 		player->SetHomebind(Aloc, 1519);
 	}
 	else
 	{
-		player->TeleportTo(1, 1569.59f, -4397.63f, 7.70f, 0.54f); //Orgrimmar
+		player->SetMapId(1);
+		player->Relocate(1616.787f, -4420.116f, 14.2591305f, 0.54f); //Orgrimmar
 		player->SetHomebind(Hloc, 1653);
 	}
 	
-	player->SaveToDB(false, false);
+	player->SaveToDB(false, true);
+	
+	player->GetSession()->LogoutPlayer(true);
 	
 }
 
@@ -1084,72 +1088,72 @@ public:
 		switch (player->getClass())
 		{
 			case CLASS_WARRIOR:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Waffen", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 1);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Furor", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 2);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Schutz", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 3);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Waffen", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 1, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Furor", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 2, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Schutz", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 3, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_ROGUE:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Meucheln", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 4);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Kampf", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 5);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Täuschung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 6);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Meucheln", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 4, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Kampf", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 5, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Täuschung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 6, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_SHAMAN:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Elementar", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 7);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Verstärkung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 8);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Wiederherstellung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 9);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Elementar", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 7, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Verstärkung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 8, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Wiederherstellung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 9, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_HUNTER:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Tierherrschaft", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 10);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Treffsicherheit", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 11);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Überleben", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 12);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Tierherrschaft", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 10, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Treffsicherheit", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 11, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Überleben", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 12, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_MAGE:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Arkan", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 13);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Feuer", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 14);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Frost", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 15);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Arkan", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 13, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Feuer", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 14, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Frost", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 15, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_WARLOCK:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Gebrechen", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 16);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Dämonologie", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 17);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zerstörung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 18);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Gebrechen", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 16, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Dämonologie", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 17, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zerstörung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 18, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_PALADIN:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Heilig", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 19);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Schutz", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 20);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Vergeltung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 21);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Heilig", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 19, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Schutz", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 20, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Vergeltung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 21, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_DRUID:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Gleichgewicht", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 22);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Wildheit", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 23);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Wiederherstellung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 24);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Gleichgewicht", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 22, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Wildheit", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 23, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Wiederherstellung", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 24, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_PRIEST:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Disziplin", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 25);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Heilig", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 26);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Schatten", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 27);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Disziplin", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 25, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Heilig", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 26, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Schatten", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 27, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 
 			case CLASS_DEATH_KNIGHT:
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Blut", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 28);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Frost", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 29);
-				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Unheilig", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 30);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Blut", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 28, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Frost", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 29, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
+				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Unheilig", GOSSIP_SENDER_MAIN, GOSSIP_GEAR + 30, "Level 60 Boost durchführen?\nHinweis: Der Charakter dabei wird ausgelogt.", 0, false);
 				AddGossipItemFor(player, GOSSIP_ICON_CHAT, "Zurück", GOSSIP_SENDER_MAIN, GOSSIP_MAIN_MENU);
 				break;
 		}

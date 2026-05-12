@@ -81,20 +81,20 @@ INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`
 (11,25314,65000,0,0,10965,0,0,61,0),  -- book, Greater Heal (Rank 5), level 60 -> 61
 (11,25315,6500,0,0,10929,0,0,61,0),   -- book, Renew (Rank 10), level 60 -> 61
 (11,25316,6500,0,0,10961,0,0,61,0),   -- book, Prayer of Healing (Rank 5), level 60 -> 61
-(11,25392,100000,0,0,21564,0,0,71,0), -- book, Prayer of Fortitude (Rank 3), level 70 -> 71
 (11,27683,42000,0,0,0,0,0,61,0),      -- book, Prayer of Shadow Protection (Rank 1), level 56 -> 61
 -- (11,34863,2100,0,0,34861,0,0,56,0), -- talent, Circle of Healing (Rank 2), level 56 -> 61
 -- (11,34864,2300,0,0,34863,0,0,60,0), -- talent, Circle of Healing (Rank 3), level 60 -> 61
+(11,25392,100000,0,0,21564,0,0,71,0), -- book, Prayer of Fortitude (Rank 3), level 70 -> 71
 (11,39374,100000,0,0,27683,0,0,71,0); -- book, Prayer of Shadow Protection (Rank 2), level 70 -> 71
 
 -- Shaman
-DELETE FROM `trainer_spell` WHERE `TrainerId` = 14 AND `SpellId` IN (2645, 25357, 25361, 29228, 57994);
+DELETE FROM `trainer_spell` WHERE `TrainerId` = 14 AND `SpellId` IN (2645, 25357, 25361, 29228);
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqAbility1`, `ReqAbility2`, `ReqAbility3`, `ReqLevel`, `VerifiedBuild`) VALUES
 (14,2645,2200,0,0,0,0,0,20,0), -- Ghost Wolf, level 16 -> 20
 -- (14,24398,38000,0,0,52138,0,0,62,0), -- optional, Water Shield (Rank 7), level 62 -> 71
 (14,25357,6500,0,0,10396,0,0,61,0),  -- book, Healing Wave (Rank 10), level 60 -> 61
 (14,25361,34000,0,0,10442,0,0,61,0), -- book, Strength of Earth Totem (Rank 5), level 60 -> 61
-(14,29228,65000,0,0,10448,0,0,61,0), -- book, Flame Shock (Rank 6), level 60 -> 61
+(14,29228,65000,0,0,10448,0,0,61,0); -- book, Flame Shock (Rank 6), level 60 -> 61
 -- (14,32593,1700,0,0,974,0,0,60,0),    -- talent, Earth Shield (Rank 2), level 60 -> 61
 -- (14,33736,79000,0,0,24398,0,0,69,0), -- optional, Water Shield (Rank 8), level 69 -> 71
 -- (14,36936,7000,0,0,0,0,0,30,0),      -- optional, Totemic Recall, level 30 -> 61
@@ -106,13 +106,13 @@ INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`
 -- (14,52138,29000,0,0,52136,0,0,55,0), -- optional, Water Shield (Rank 6), level 55 -> 71
 -- (14,57720,3400,0,0,30706,0,0,60,0),  -- talent, Totem of Wrath (Rank 2), level 60 -> 71
 -- (14,57721,5200,0,0,57720,0,0,70,0),  -- talent, Totem of Wrath (Rank 3), level 70 -> 71
-(14,57994,2500,0,0,0,0,0,16,0);      -- optional, Wind Shear, level 16 -> 71
+-- (14,57994,2500,0,0,0,0,0,16,0),      -- optional, Wind Shear, level 16 -> 71
 -- (14,66842,700,0,0,0,0,0,30,0), -- optional, Call of the Elements, level 30 -> 71
 -- (14,66843,700,0,0,0,0,0,40,0), -- optional, Call of the Ancestors, level 40 -> 71
--- (14,66844,700,0,0,0,0,0,50,0), -- optional, Call of the Spirits, level 50 -> 71
+-- (14,66844,700,0,0,0,0,0,50,0); -- optional, Call of the Spirits, level 50 -> 71
 
 -- Mage
-DELETE FROM `trainer_spell` WHERE `TrainerId` = 16 AND `SpellId` IN (10140, 23028, 25304, 25345, 27090, 27127, 28609, 28612, 33717);
+DELETE FROM `trainer_spell` WHERE `TrainerId` = 16 AND `SpellId` IN (10140, 25304, 23028, 25345, 27090, 27127, 28609, 28612, 33717);
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqAbility1`, `ReqAbility2`, `ReqAbility3`, `ReqLevel`, `VerifiedBuild`) VALUES
 (16,23028,38000,0,0,0,0,0,61,0),      -- book, Arcane Brilliance (Rank 1), level 56 -> 61
 (16,10140,42000,0,0,10139,0,0,61,0),  -- quest, Conjure Water (Rank 7), level 60 -> 61
@@ -148,10 +148,8 @@ INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`
 (33,25297,34000,0,0,9889,0,0,61,0),   -- book, Healing Touch (Rank 11), level 60 -> 61
 (33,25298,34000,0,0,9876,0,0,61,0),   -- book, Starfire (Rank 7), level 60 -> 61
 (33,25299,34000,0,0,9841,0,0,61,0),   -- book, Rejuvenation (Rank 11), level 60 -> 61
-(33,26991,100000,0,0,21850,0,0,71,0), -- book, Gift of the Wild (Rank 3), level 70 -> 71
 (33,31018,30000,0,0,22829,0,0,61,0),  -- book, Ferocious Bite (Rank 5), level 60 -> 61
 (33,31709,34000,0,0,9892,0,0,61,0),   -- book, Cower (Rank 4), level 60 -> 61
-(33,33950,34000,0,0,33391,0,0,68,0);  -- Flight Form, level 60 -> 68
 -- (33,33982,1700,0,0,33876,0,0,58,0),   -- talent, Mangle (Cat) (Rank 2), level 58 -> 61
 -- (33,33986,1700,0,0,33878,0,0,58,0),   -- talent, Mangle (Bear) (Rank 2), level 58 -> 61
 -- (33,50764,90000,0,0,50765,0,0,69,0),  -- optional, Revive (Rank 6), level 69 -> 71
@@ -161,6 +159,8 @@ INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`
 -- (33,50768,4000,0,0,50769,0,0,24,0),   -- optional, Revive (Rank 2), level 24 -> 71
 -- (33,50769,800,0,0,0,0,0,12,0),        -- optional, Revive (Rank 1), level 12 -> 71
 -- (33,53223,600,0,0,50516,0,0,60,0),    -- talent, Typhoon (Rank 2), level 60 -> 71
+(33,26991,100000,0,0,21850,0,0,71,0), -- book, Gift of the Wild (Rank 3), level 70 -> 71
+(33,33950,34000,0,0,33391,0,0,68,0);  -- Flight Form, level 60 -> 68
 -- (33,62600,4500,0,0,0,0,0,40,0);       -- optional, Savage Defense, level 40 -> 71
 
 /* Restore drops from Grimoire of Shadow Ward IV */

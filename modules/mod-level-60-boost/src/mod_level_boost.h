@@ -98,6 +98,7 @@ public:
     bool levelBoost = true;
     bool dualSpec = true;
     bool learnSpells = true;
+    bool learnEpicMount = true;
     bool learnProficiencies = true;
     bool learnTalents = true;
     bool learnGlyphs = true;
@@ -122,7 +123,7 @@ public:
     void UnlockFlightPaths(Player* player);
     void HandleBoost(Player* player, Creature* creature, const std::string& spec);
 	void HandleDeathKnight(Player* player);
-	void GetRaceMount(Player* player);
+	void GetMount(Player* player);
     void CreateHunterPet(Player* player, Creature* creature, uint32 entry);
 
     // Apply templates
