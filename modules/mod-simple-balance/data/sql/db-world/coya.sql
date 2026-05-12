@@ -2,6 +2,10 @@
 -- ## CoYa QOL Changes                      #
 -- ##########################################
 
+-- Riding Turtle for all new Characters
+INSERT INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`) 
+VALUES (0, 0, 30174, 'Custom - Riding Turtle');
+
 -- Remove Hearthstone Cooldown
 INSERT IGNORE INTO spell_cooldown_overrides (Id, RecoveryTime, CategoryRecoveryTime, StartRecoveryTime, StartRecoveryCategory, COMMENT) VALUES 
 (8690, 600000, 600000, 0, 0, 'Custom - Hearthstone'),
