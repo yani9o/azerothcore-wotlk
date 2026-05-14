@@ -875,19 +875,95 @@ void WorldSession::HandlePlayerLoginFromDB(LoginQueryHolder const& holder)
     if (!pCurrChar->getCinematic())
     {
         pCurrChar->setCinematic(1);
+		uint32 customCinematicRace = 0;
+		uint8 pRace = pCurrChar->getRace();
+		uint8 pClass = pCurrChar->getClass();
 
-        if (ChrClassesEntry const* cEntry = sChrClassesStore.LookupEntry(pCurrChar->getClass()))
-        {
-            if (cEntry->CinematicSequence)
-                pCurrChar->GetCinematicMgr().StartCinematic(cEntry->CinematicSequence);
-            else if (ChrRacesEntry const* rEntry = sChrRacesStore.LookupEntry(pCurrChar->getRace()))
-                pCurrChar->GetCinematicMgr().StartCinematic(rEntry->CinematicSequence);
+		// --- CUSTOM INTRO MAPPING ---
+		
+		// DARNASSUS
+		if ((pRace == 1 && pClass == 11)  || // Human Druid
+			(pRace == 3 && pClass == 11)  || // Dwarf Druid
+			(pRace == 7 && pClass == 11)  || // Gnome Druid
+			(pRace == 11 && pClass == 4)  || // Draenei Rogue
+			(pRace == 11 && pClass == 11))   // Draenei Druid
+		{
+			customCinematicRace = 4; // Darnassus Cinematic Sequence
+		}
+		// IRONFORGE
+		else if ((pRace == 1 && pClass == 3))     // Human Hunter
+		{
+			customCinematicRace = 3; // Ironforge Cinematic Sequence
+		}
+		// STORMWIND
+		else if ((pRace == 4 && pClass == 2)  || // Nightelf Paladin
+				 (pRace == 4 && pClass == 8)  || // Nightelf Mage
+				 (pRace == 4 && pClass == 9)  || // Nightelf Warlock
+				 (pRace == 11 && pClass == 9))   // Draenei Warlock
+		{
+			customCinematicRace = 1; // Stormwind Cinematic Sequence
+		}
+		// EXODAR
+		else if ((pRace == 1 && pClass == 7)  || // Human Shaman
+				 (pRace == 3 && pClass == 7)  || // Dwarf Shaman
+				 (pRace == 4 && pClass == 7)  || // Nightelf Shaman
+				 (pRace == 7 && pClass == 7))    // Gnome Shaman
+		{
+			customCinematicRace = 11; // Exodar Cinematic Sequence
+		}
+		// SILVERMOON
+		else if ((pRace == 2 && pClass == 2)  || // Orc Paladin
+				 (pRace == 5 && pClass == 2)  || // Undead Paladin
+				 (pRace == 5 && pClass == 3)  || // Undead Hunter
+				 (pRace == 6 && pClass == 2)  || // Tauren Paladin
+				 (pRace == 8 && pClass == 2))    // Troll Paladin
+		{
+			customCinematicRace = 10; // Silvermoon Cinematic Sequence
+		}
+		// THUNDERBLUFF
+		else if ((pRace == 2 && pClass == 11) || // Orc Druid
+				 (pRace == 5 && pClass == 11) || // Undead Druid
+				 (pRace == 8 && pClass == 11) || // Troll Druid
+				 (pRace == 10 && pClass == 11))  // Bloodelf Druid
+		{
+			customCinematicRace = 6; // Thunder Bluff Cinematic Sequence
+		}
+		// ORGRIMMAR
+		else if ((pRace == 5 && pClass == 7)  || // Undead Shaman
+				 (pRace == 6 && pClass == 4)  || // Tauren Rogue
+				 (pRace == 6 && pClass == 5)  || // Tauren Priest
+				 (pRace == 6 && pClass == 8)  || // Tauren Mage
+				 (pRace == 6 && pClass == 9)  || // Tauren Warlock
+				 (pRace == 10 && pClass == 7))   // Bloodelf Shaman
+		{
+			customCinematicRace = 2; // Orgrimmar Cinematic Sequence
+		}
+		// UNDERCITY
+		else if (pRace == 10 && pClass == 1)     // Bloodelf Warrior
+		{
+			customCinematicRace = 5; // Undercity Cinematic Sequence
+		}
 
-            // send new char string if not empty
-            std::string_view newCharString = sWorld->getStringConfig(CONFIG_NEW_CHAR_STRING);
-            if (!newCharString.empty())
-                chH.PSendSysMessage("{}", newCharString);
-        }
+		// --- CINEMATIC START EXECUTION ---
+		if (customCinematicRace > 0)
+		{
+			ChrRacesEntry const* rEntry = sChrRacesStore.LookupEntry(customCinematicRace);
+			pCurrChar->GetCinematicMgr().StartCinematic(rEntry->CinematicSequence);
+		}
+		else // Standard Race-Class Combos
+		{
+			if (ChrClassesEntry const* cEntry = sChrClassesStore.LookupEntry(pCurrChar->getClass()))
+			{
+				if (cEntry->CinematicSequence)
+					pCurrChar->GetCinematicMgr().StartCinematic(cEntry->CinematicSequence);
+				else if (ChrRacesEntry const* rEntry = sChrRacesStore.LookupEntry(pCurrChar->getRace()))
+					pCurrChar->GetCinematicMgr().StartCinematic(rEntry->CinematicSequence);
+			}
+		}
+		// send new char string if not empty
+		std::string_view newCharString = sWorld->getStringConfig(CONFIG_NEW_CHAR_STRING);
+		if (!newCharString.empty())
+			chH.PSendSysMessage("{}", newCharString);
     }
 
     // Xinef: moved this from below

@@ -689,17 +689,67 @@ void LevelBoost::HandleDeathKnight(Player* player)
 
 void LevelBoost::GetMount(Player* player)
 {
-
-	if (!player->HasSpell(75614))
+	uint32 mountSpellId = 0;
+	uint32 epicSpellId = 0;
+	switch (player->getRace())
+	{
+		case RACE_HUMAN:
+			mountSpellId = 472;
+			epicSpellId = 23229;
+			break;
+		case RACE_DWARF:
+			mountSpellId = 6898;
+			epicSpellId = 23238;
+			break;
+		case RACE_NIGHTELF:
+			mountSpellId = 10793;
+			epicSpellId = 23221;
+			break;
+		case RACE_GNOME:
+			mountSpellId = 17454;
+			epicSpellId = 23225;
+			break;
+		case RACE_DRAENEI:
+			mountSpellId = 35711;
+			epicSpellId = 35713;
+			break;
+		case RACE_ORC:
+			mountSpellId = 580;
+			epicSpellId = 23250;
+			break;
+		case RACE_UNDEAD_PLAYER:
+			mountSpellId = 17462;
+			epicSpellId = 17465;
+			break;
+		case RACE_TAUREN:
+			mountSpellId = 18989;
+			epicSpellId = 23249;
+			break;
+		case RACE_TROLL:
+			mountSpellId = 10799;
+			epicSpellId = 23241;
+			break;
+		case RACE_BLOODELF:
+			mountSpellId = 34795;
+			epicSpellId = 35025;
+			break;
+		default:
+			epicSpellId = 0;
+			break;
+	}
+	
+	if (!player->HasSpell(mountSpellId))
 	{
 		if (!player->HasSpell(33388))
 			player->learnSpell(33388);
-		player->learnSpell(75614);
+		player->learnSpell(mountSpellId);
 	}
 	
-	if (!player->HasSpell(33391) && learnEpicMount)
+	if (!player->HasSpell(epicSpellId) && learnEpicMount)
 	{
-		player->learnSpell(33391);
+		if (!player->HasSpell(33391))
+				player->learnSpell(33391);
+		player->learnSpell(epicSpellId);
 	}
 	
 	uint32 classMountN = 0;

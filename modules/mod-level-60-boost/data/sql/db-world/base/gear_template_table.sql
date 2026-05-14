@@ -465,7 +465,7 @@ INSERT INTO `mod_boost_gear` (`player_class`, `player_spec`, `equipment_slot`, `
 ('Paladin', 'Retribution', 12, 13965),
 ('Paladin', 'Retribution', 13, 11815),
 ('Paladin', 'Retribution', 14, 13340),
-('Paladin', 'Retribution', 15, 12784),
+('Paladin', 'Retribution', 15, 12790),
 ('Paladin', 'Retribution', 17, 23203),
 ('Paladin', 'Retribution', 19, 4500),
 ('Paladin', 'Retribution', 20, 4500),
