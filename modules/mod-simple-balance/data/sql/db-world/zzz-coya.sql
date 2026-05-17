@@ -3,10 +3,8 @@
 -- ##########################################
 
 -- Riding Turtle for all new Characters
-REPLACE INTO `playercreateinfo_item` (`race`, `class`, `itemid`, `amount`, `Note`)
-VALUES (0, 0, 23720, 1, 'Custom - Riding Turtle');
-
-UPDATE `Item_template` SET `RequiredLevel` = 0 WHERE `entry` = 23720;
+REPLACE INTO `playercreateinfo_spell_custom` (`racemask`, `classmask`, `Spell`, `Note`)
+VALUES (0, 0, 30174, 'Custom - Riding Turtle');
 
 -- Set Hearthstone Cooldown to 10 Minutes
 REPLACE INTO `spell_cooldown_overrides` (`Id`, `RecoveryTime`, `CategoryRecoveryTime`, `StartRecoveryTime`, `StartRecoveryCategory`, `COMMENT`) VALUES 
@@ -48,7 +46,7 @@ UPDATE `quest_template` SET `RewardDisplaySpell` = 23214, `RewardItem1` = 60001,
 -- ##########################################
 
 -- Remove Custom Spells
-DELETE FROM `trainer_spell` WHERE `SpellId` IN (190001,190002,190003,190004);
+DELETE FROM `trainer_spell` WHERE `SpellId` IN (190001,190002,190003,190004,190007);
 
 -- DEATHKNIGHT
 -- Rime for FrostStrike and Deathstrike
@@ -85,6 +83,11 @@ INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`
 (4, 190001, 10, 0, 0, 0, 0, 0, 2, 0),
 (5, 190001, 10, 0, 0, 0, 0, 0, 2, 0),
 (6, 190001, 10, 0, 0, 0, 0, 0, 2, 0);
+-- Customspell: Rebuke at level 18
+INSERT INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqAbility1`, `ReqAbility2`, `ReqAbility3`, `ReqLevel`, `VerifiedBuild`) VALUES 
+(3, 190007, 3500, 0, 0, 0, 0, 0, 18, 0),
+(4, 190007, 3500, 0, 0, 0, 0, 0, 18, 0),
+(5, 190007, 3500, 0, 0, 0, 0, 0, 18, 0);
 
 -- PRIEST
 -- Mind Sear at level 40
@@ -217,7 +220,7 @@ REPLACE INTO `disables` (`sourceType`, `entry`, `flags`, `comment`) VALUES
 -- Disable Nordend Transport
 DELETE FROM `transports` WHERE `entry` IN (181688,181689,186238,190536);
 
--- Disable Master Professions and Riding/Flightform
+-- Disable Master Professions (including complete Inscription) and Riding/Flightform
 UPDATE `trainer_spell` SET `ReqLevel` = 61 WHERE `SpellId` IN (28597,29845,28030,30351,28696,45379,28901,32550,29355,32679,26791,54084,54256,34090);
 
 -- Set all Glyphs >60 to 60
