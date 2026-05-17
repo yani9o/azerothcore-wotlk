@@ -222,6 +222,8 @@ DELETE FROM `transports` WHERE `entry` IN (181688,181689,186238,190536);
 
 -- Disable Master Professions (including complete Inscription) and Riding/Flightform
 UPDATE `trainer_spell` SET `ReqLevel` = 61 WHERE `SpellId` IN (28597,29845,28030,30351,28696,45379,28901,32550,29355,32679,26791,54084,54256,34090);
+UPDATE `creature_template` SET `npcflag` = `npcflag` & ~80 WHERE `entry` IN (SELECT `CreatureId` FROM `creature_default_trainer` WHERE `TrainerId` IN (119, 120, 121));
+DELETE FROM `creature_default_trainer` WHERE `TrainerId` IN (119,120,121);
 
 -- Set all Glyphs >60 to 60
 UPDATE `item_template` SET `RequiredLevel` = 60 WHERE `class` = 16 AND `RequiredLevel` > 60;
