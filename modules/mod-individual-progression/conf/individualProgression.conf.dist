@@ -91,7 +91,7 @@ IndividualProgression.BotOnlyAdjustments = 0
 #        Default:     1 - Enabled
 #                     0 - Disabled
 #
-IndividualProgression.QuestXPFix = 1
+IndividualProgression.QuestXPFix = 0
 
 # IndividualProgression.RequireNaxxStrathEntrance
 #

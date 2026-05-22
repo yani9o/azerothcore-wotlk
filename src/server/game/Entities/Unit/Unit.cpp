@@ -9305,13 +9305,13 @@ float Unit::SpellTakenCritChance(Unit const* caster, SpellInfo const* spellProto
                                     crit_chance += aura->GetAmount();
                                 break;
                             }
-                            // Exorcism
-                            else if (spellProto->GetCategory() == 19)
+                            // Exorcism - CUSTOM CHANGE
+                            /*else if (spellProto->GetCategory() == 19)
                             {
                                 if (GetCreatureTypeMask() & CREATURE_TYPEMASK_DEMON_OR_UNDEAD)
                                     return 100.0f;
                                 break;
-                            }
+                            }*/
                             break;
                         case SPELLFAMILY_SHAMAN:
                             // Lava Burst
@@ -11731,6 +11731,12 @@ int32 Unit::ModSpellDuration(SpellInfo const* spellProto, Unit const* target, in
                 {
                     // Glyph of Blessing of Wisdom
                     if (AuraEffect* aurEff = GetAuraEffect(57979, 0))
+                        duration += aurEff->GetAmount() * MINUTE * IN_MILLISECONDS;
+                }
+                else if ((spellProto->SpellFamilyFlags[0] & 0x01000000) && spellProto->SpellIconID == 332)
+                {
+                    // Glyph of Blessing of Kings
+                    if (AuraEffect* aurEff = GetAuraEffect(57937, 0))
                         duration += aurEff->GetAmount() * MINUTE * IN_MILLISECONDS;
                 }
                 break;
