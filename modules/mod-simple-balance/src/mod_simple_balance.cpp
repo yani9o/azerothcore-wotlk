@@ -341,7 +341,7 @@ public:
 		{
 			switch (P)
 			{
-				case 1: grpfactor = 1.4f; break;
+				case 1: grpfactor = 1.68f; break;
 				case 2: grpfactor = 1.4f; break;
 				case 3: grpfactor = 1.200686106f; break;
 				case 4: grpfactor = 1.076923077f; break;

@@ -308,6 +308,9 @@ UPDATE `creature` SET `position_x` = -6218.099, `position_y` = 329.7403, `positi
 -- Humar
 UPDATE `creature` SET `position_x` = -636.4117, `position_y` = -3665.8228, `position_z` = 94.95956, `orientation` = 4.937 WHERE `guid` = 65607;
 
+-- Paladin Quest Names
+UPDATE `quest_template_locale` SET `Title` = 'Der Foliant der Ehre' WHERE `ID` IN (1649,1650,1651,1652,1793,1794);
+
 
 
 -- ##########################################

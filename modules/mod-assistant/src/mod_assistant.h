@@ -95,7 +95,7 @@ enum
 #define GOSSIP_ENCHANTS_CLOAK "Umhangverzauberungen"
 #define GOSSIP_ENCHANTS_SHIELD "Schildverzauberungen"
 
-#define GOSSIP_CONTAINERS "Taschen & Behälter"
+#define GOSSIP_CONTAINERS "Luxusgüter"
 
 #define GOSSIP_UTILITIES "Charakterdienste"
 #define GOSSIP_UTILITIES_NAME "Name ändern"

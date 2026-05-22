@@ -2459,12 +2459,12 @@ void Spell::EffectSummonType(SpellEffIndex effIndex)
 
                         summon->SetImmuneToAll(true);
                         summon->SetReactState(REACT_PASSIVE);
+                        summon->SetFacingToObject(m_originalCaster); // Custom Change so Jeeves faces the caster instead of away from it
 
                         // Xinef: Pet can have some auras in creature_addon or in scripts, do not remove them instantly
                         //summon->AI()->EnterEvadeMode();
                         if (properties->Type != SUMMON_TYPE_JEEVES)
                         {
-                            summon->SetFacingToObject(m_originalCaster);
                             summon->GetMotionMaster()->Clear(false);
                             summon->GetMotionMaster()->MoveFollow(m_originalCaster, PET_FOLLOW_DIST, MINI_PET_FOLLOW_ANGLE, MOTION_SLOT_ACTIVE);
                         }
