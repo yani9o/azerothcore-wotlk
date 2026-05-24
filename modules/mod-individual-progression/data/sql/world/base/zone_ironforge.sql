@@ -1,3 +1,4 @@
+/*
 UPDATE `creature_template` SET `subname` = 'Journeyman Alchemist'     WHERE `entry` = 1246;  -- Vosur Brakthel <Journeyman Alchemist>
 UPDATE `creature_template` SET `subname` = 'Journeyman Leatherworker' WHERE `entry` = 1466;  -- Gretta Finespindle <Journeyman Leatherworker>
 UPDATE `creature_template` SET `subname` = 'Journeyman Tailor'        WHERE `entry` = 1703;  -- Uthrar Threx <Journeyman Tailor>
@@ -20,6 +21,7 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4160, 0, 7, 333, 50,  'Show menu if enchanting is 50 or higher'),     -- Gimble Thistlefuzz <Expert Enchanter>
 (15, 4205, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'), -- Fimble Finespindle <Expert Leatherworker>
 (15, 4345, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');      -- Jormund Stonebrow <Expert Tailor>
+*/
 
 -- battlemasters
 DELETE FROM `creature` WHERE `id1` IN (857, 5113, 5115, 6114, 12197, 14982, 19915, 34991, 35007, 35025, 35600) OR `guid` = 86263;

@@ -1,3 +1,4 @@
+/*
 UPDATE `creature_template` SET `npcflag` = 81, `subname` = 'Journeyman Leatherworker'     WHERE `entry` = 223;   -- Dan Golthas <Journeyman Leatherworker> -- `trainer_type` = 2
 UPDATE `creature_template` SET `npcflag` = 83, `subname` = 'Journeyman Engineer'          WHERE `entry` = 4586;  -- Graham Van Talen <Journeyman Engineer>  -- `trainer_type` = 2
 UPDATE `creature_template` SET `npcflag` = 81, `subname` = 'Journeyman Blacksmith'        WHERE `entry` = 4605;  -- Basil Frye <Journeyman Blacksmith> -- `trainer_type` = 2
@@ -18,6 +19,7 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4210, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'), -- Arthur Moore <Expert Leatherworker>
 (15, 4352, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher'),      -- Rhiannon Davis <Expert Tailor>
 (15, 4354, 0, 7, 197, 125, 'Show menu if tailoring is 125 or higher');     -- Josef Gregorian <Artisan Tailor>
+*/
 
 DELETE FROM `gossip_menu_option` WHERE (`MenuID`) IN (2847, 2848, 2849);
 INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionText`, `OptionBroadcastTextID`, `OptionType`, `OptionNpcFlag`, 
@@ -30,7 +32,7 @@ INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionTex
 (2847, 5, 0, 'First Aid', 3464, 1, 1, 2839, 341, 0, 0, NULL, 0, 0),
 (2847, 6, 0, 'Fishing', 3465, 1, 1, 2840, 342, 0, 0, NULL, 0, 0),
 (2847, 7, 0, 'Herbalism', 3466, 1, 1, 2841, 343, 0, 0, NULL, 0, 0),
-(2847, 8, 0, 'Inscription', 48811, 1, 1, 10019, 344, 0, 0, NULL, 0, 0),
+-- (2847, 8, 0, 'Inscription', 48811, 1, 1, 10019, 344, 0, 0, NULL, 0, 0),
 (2847, 9, 0, 'Leatherworking', 3467, 1, 1, 2842, 345, 0, 0, NULL, 0, 0),
 (2847, 10, 0, 'Mining', 3468, 1, 1, 2843, 347, 0, 0, NULL, 0, 0),
 (2847, 11, 0, 'Skinning', 3471, 1, 1, 2844, 346, 0, 0, NULL, 0, 0),

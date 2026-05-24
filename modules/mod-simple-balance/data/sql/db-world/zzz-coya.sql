@@ -310,6 +310,7 @@ UPDATE `creature` SET `position_x` = -636.4117, `position_y` = -3665.8228, `posi
 
 -- Paladin Quest Names
 UPDATE `quest_template_locale` SET `Title` = 'Der Foliant der Ehre' WHERE `ID` IN (1649,1650,1651,1652,1793,1794);
+UPDATE `quest_template_locale` SET `Title` = 'Worgs in den Wäldern' WHERE `ID` IN (173,221,222,223);
 
 
 

@@ -1,4 +1,4 @@
-UPDATE `creature_template` SET `subname` = 'Expert Blacksmith'        WHERE `entry` = 2998;  -- Karn Stonehoof <Expert Blacksmith>
+/*UPDATE `creature_template` SET `subname` = 'Expert Blacksmith'        WHERE `entry` = 2998;  -- Karn Stonehoof <Expert Blacksmith>
 UPDATE `creature_template` SET `subname` = 'Expert Tailor'            WHERE `entry` = 3004;  -- Tepa <Expert Tailor>
 UPDATE `creature_template` SET `subname` = 'Artisan Leatherworker'    WHERE `entry` = 3007;  -- Una <Artisan Leatherworker>
 UPDATE `creature_template` SET `subname` = 'Journeyman Leatherworker' WHERE `entry` = 3008;  -- Mak <Journeyman Leatherworker>
@@ -13,9 +13,6 @@ UPDATE `creature_template` SET `subname` = 'Expert Leatherworker'     WHERE `ent
 UPDATE `creature_template` SET `npcflag` = 81 WHERE `entry` IN (3008, 10278, 11047, 11051, 11071, 11084); -- `trainer_type` = 2
 UPDATE `creature_template` SET `type_flags` = 134217728 WHERE `entry` IN (3004, 3007, 3009, 3011, 11084);
 
-/* NPC Thrumn - Remove non-Vanilla Tabards */
-DELETE FROM `npc_vendor` WHERE `entry`= 5189 AND `item` IN (15197, 15199, 19031, 19505, 24004, 31773, 31775, 31776, 31777, 31778, 31779, 31780, 31781, 31804, 32445, 32828, 35221);
-
 DELETE FROM `conditions` WHERE `SourceTypeOrReferenceId` = 15 AND `SourceEntry` = 0 AND `ConditionTypeOrReference` = 7 AND `SourceGroup` IN (1017, 4128, 4165, 4207, 4242, 4351);
 INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry`, `ConditionTypeOrReference`, `ConditionValue1`, `ConditionValue2`, `Comment`) VALUES
 (15, 1017, 0, 7, 164, 50,  'Show menu if blacksmithing is 50 or higher'),   -- Karn Stonehoof <Expert Blacksmith>
@@ -24,6 +21,10 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4207, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'),  -- Tarn <Expert Leatherworker>
 (15, 4242, 0, 7, 165, 125, 'Show menu if leatherworking is 125 or higher'), -- Una <Artisan Leatherworker>
 (15, 4351, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');       -- Tepa <Expert Tailor>
+*/
+
+/* NPC Thrumn - Remove non-Vanilla Tabards */
+DELETE FROM `npc_vendor` WHERE `entry`= 5189 AND `item` IN (15197, 15199, 19031, 19505, 24004, 31773, 31775, 31776, 31777, 31778, 31779, 31780, 31781, 31804, 32445, 32828, 35221);
 
 -- battlemasters
 DELETE FROM `creature` WHERE `id1` IN (7427, 10360, 12198, 34976, 34978);

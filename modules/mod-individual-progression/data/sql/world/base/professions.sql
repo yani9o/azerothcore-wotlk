@@ -20,8 +20,10 @@ DELETE FROM `trainer_spell` WHERE `SpellID` IN (7929, 10840, 27032, 27033);
 DELETE FROM `trainer_spell` WHERE `SpellID` IN (54254, 10847, 54255);
 UPDATE `quest_template` SET `RewardItem3` = 16085, `RewardAmount3` = 1 WHERE `ID` IN (6624, 6622);
 UPDATE `item_template` SET `description` = 'Teaches you advanced first aid, allowing a maximum of 300 first aid skill.' WHERE `entry` = 16085;
+DELETE FROM `item_template_locale` WHERE `ID` = 16085 AND `locale` IN ('frFR','deDE');
 INSERT IGNORE INTO `item_template_locale` (`ID`, `locale`, `Name`, `Description`, `VerifiedBuild`) VALUES 
-(16085, 'frFR', 'Artisan en premiers soins - Se soigner seul', 'Vous apprend des techniques avancées en Premiers soins et vous permet d''augmenter votre compétence jusqu''à un maximum de 300.', 0);
+(16085, 'frFR', 'Artisan en premiers soins - Se soigner seul', 'Vous apprend des techniques avancées en Premiers soins et vous permet d''augmenter votre compétence jusqu''à un maximum de 300.', 0),
+(16085, 'deDE', 'Erste Hilfe für den Fachmann - Heilt Euch selbst', 'Lehrt Euch hochentwickelte Erste Hilfe mit einer maximalen Fertigkeit von 300.', 0);
 
 -- TBC First Aid vendors
 UPDATE `creature_template` SET `npcflag` = 128 WHERE `entry` IN (18990, 18991); -- set to vendors, no longer trainers
@@ -97,7 +99,7 @@ INSERT INTO npc_vendor (entry, slot, item) VALUES
 (18990, 0, 21993),
 (18991, 0, 21992),
 (18991, 0, 21993);
-
+/*
 UPDATE `creature_template` SET `subname` = 'Journeyman Alchemist'     WHERE `entry` IN (16161);
 UPDATE `creature_template` SET `subname` = 'Expert Alchemist'         WHERE `entry` IN (16642, 16723);
 UPDATE `creature_template` SET `subname` = 'Journeyman Blacksmith'    WHERE `entry` IN (15400);
@@ -110,16 +112,16 @@ UPDATE `creature_template` SET `subname` = 'Journeyman Leatherworker' WHERE `ent
 UPDATE `creature_template` SET `subname` = 'Expert Leatherworker'     WHERE `entry` IN (16688, 16728);
 UPDATE `creature_template` SET `subname` = 'Journeyman Tailor'        WHERE `entry` IN (16366, 17487);
 UPDATE `creature_template` SET `subname` = 'Expert Tailor'            WHERE `entry` IN (16640, 16729);
-
+*/
 -- Delete added riding trainers
 DELETE FROM creature WHERE `id1` IN (35093, 35100);
 DELETE FROM creature_addon WHERE `guid` IN (88165, 88166);
 
 -- Optional - delete TBC trainers added in WotLK 3.1
-DELETE FROM creature WHERE `id1` IN 
+/*DELETE FROM creature WHERE `id1` IN 
 (33608, 33609, 33610, 33611, 33612, 33613, 33614, 33615, 33616, 33617, 33618, 33619, 
 33621, 33623, 33630, 33631, 33633, 33634, 33635, 33636, 33637, 33639, 33640, 33641, 
-33674, 33675, 33676, 33677, 33678, 33680, 33681, 33682, 33683, 33684, 35099, 35101);
+33674, 33675, 33676, 33677, 33678, 33680, 33681, 33682, 33683, 33684, 35099, 35101);*/
 
 -- TBC Recipes moved to trainers in 2.4.0
 DELETE FROM `trainer_spell` WHERE `SpellID` IN (28905, 34590, 28903, 28914, 28925, 28910, 28917, 28916, 28950, 28903);
@@ -244,7 +246,7 @@ INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `Exte
 
 
 -- NEW!
-
+/*
 SET @TRAINER_ID   := 600;
 
 DELETE FROM `trainer` WHERE `Id` BETWEEN @TRAINER_ID+11 AND @TRAINER_ID+51;
@@ -286,7 +288,7 @@ INSERT INTO `trainer` (`Id`, `Type`, `Requirement`, `Greeting`, `VerifiedBuild`)
 (@TRAINER_ID+51, 2, 0, 'Greetings!  Can I teach you how to turn beast hides into armor?', 0);
 
 /* Crafting Professions */
-
+/*
 DELETE FROM `trainer_spell` WHERE `TrainerId` IN (@TRAINER_ID+11, @TRAINER_ID+12, @TRAINER_ID+13);
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`) VALUES
 -- Journeyman Alchemist
@@ -1137,7 +1139,7 @@ INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
 
 
 /* Gathering Professions */
-
+/*
 -- Herbalism
 DELETE FROM `trainer_spell` WHERE `TrainerId` = @TRAINER_ID+41;
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`) VALUES
@@ -1197,7 +1199,7 @@ INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
 
 
 /* Secondary Skills */
-
+/*
 -- Cooking
 DELETE FROM `trainer_spell` WHERE `TrainerId` = @TRAINER_ID+44;
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`) VALUES
@@ -1318,7 +1320,7 @@ INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
 
 
 /* Gossip Menus */
-
+/*
 DELETE FROM `gossip_menu_option` WHERE `MenuID` IN 
 (2742, 2745, 2747, 2748, 2750, 2761, 2782, 4110, 4112, 4114, 4116, 4118, 4119, 4121, 4125, 4128, 4130, 4137, 4139, 4143, 4144, 4147, 4148, 
 4151, 4153, 4154, 4155, 4157, 4158, 4159, 4160, 4161, 4165, 4169, 4173, 4181, 4182, 4183, 4187, 4188, 4204, 4207, 4241, 4242, 4262, 4264, 4265, 4266, 4268, 4269, 4344, 4351, 4352);
@@ -1377,3 +1379,4 @@ INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionTex
 (4344, 0, 3, 'Train me.', 3266, 5, 16), -- Sellandus <Expert Tailor>
 (4351, 0, 3, 'Train me.', 3266, 5, 16), -- Tepa <Expert Tailor>
 (4352, 0, 3, 'Train me.', 3266, 5, 16); -- Rhiannon Davis <Expert Tailor>
+*/

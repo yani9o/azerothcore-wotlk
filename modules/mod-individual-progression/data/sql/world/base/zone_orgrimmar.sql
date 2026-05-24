@@ -1,3 +1,4 @@
+/*
 UPDATE `creature_template` SET `subname` = 'Expert Blacksmith'        WHERE `entry` = 1383;  -- Snarl <Expert Blacksmith>
 UPDATE `creature_template` SET `subname` = 'Journeyman Tailor'        WHERE `entry` = 2855;  -- Snang <Journeyman Tailor>
 UPDATE `creature_template` SET `subname` = 'Journeyman Engineer'      WHERE `entry` = 2857;  -- Thund <Journeyman Engineer>
@@ -28,7 +29,7 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4168, 0, 7, 333, 50,  'Show menu if enchanting is 50 or higher'),     -- Godan <Expert Enchanter>
 (15, 4209, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'), -- Karolek <Expert Leatherworker>
 (15, 4347, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');      -- Magar <Expert Tailor>
-
+*/
 DELETE FROM `creature` WHERE `id1` = 3230 AND `map`= 1;
 DELETE FROM `creature` WHERE `guid` IN (10299, 203492, 203493, 203494, 203495);
 DELETE FROM `creature` WHERE `id1` IN (3890, 14720, 14942, 15006);

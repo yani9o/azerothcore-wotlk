@@ -140,7 +140,7 @@ UPDATE `creature_template` SET `subname` = 'Skinner'                  WHERE `ent
 UPDATE `creature_template` SET `subname` = 'Journeyman Alchemist'     WHERE `entry` = 5500; -- Tel'Athir <Apprentice Alchemist> -- `trainer_type` = 2
 UPDATE `creature_template` SET `subname` = 'Expert Tailor'            WHERE `entry` = 5567; -- Sellandus <Apprentice Tailor> -- `trainer_type` = 2
 
-UPDATE `creature_template` SET `npcflag` = 81 WHERE `entry` IN (5500, 5567);
+-- UPDATE `creature_template` SET `npcflag` = 81 WHERE `entry` IN (5500, 5567);
 
 DELETE FROM `creature_template_addon` WHERE `entry` = 69;  -- Diseased Timber Wolf
 DELETE FROM `creature_template_addon` WHERE `entry` = 299; -- Diseased Young Wolf
