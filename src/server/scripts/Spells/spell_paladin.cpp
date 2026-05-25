@@ -38,6 +38,8 @@ enum PaladinSpells
     SPELL_PALADIN_HOLY_SHOCK_R1                  = 20473,
     SPELL_PALADIN_HOLY_SHOCK_R1_DAMAGE           = 25912,
     SPELL_PALADIN_HOLY_SHOCK_R1_HEALING          = 25914,
+    SPELL_PALADIN_EXORCISM_R1                    = 879,
+    SPELL_PALADIN_HOLY_WRATH_R1                  = 2812,
 
     SPELL_PALADIN_BLESSING_OF_LOWER_CITY_DRUID   = 37878,
     SPELL_PALADIN_BLESSING_OF_LOWER_CITY_PALADIN = 37879,
@@ -1922,12 +1924,10 @@ class spell_pal_seal_of_vengeance_aura : public AuraScript
     bool CheckProc(ProcEventInfo& eventInfo)
     {
         SpellInfo const* procSpell = eventInfo.GetSpellInfo();
-        if (procSpell &&
-            procSpell->SpellFamilyName == SPELLFAMILY_PALADIN)
+        if (procSpell && procSpell->SpellFamilyName == SPELLFAMILY_PALADIN)
         {
             // Block re-proc from seal damage effects
-            if ((procSpell->SpellFamilyFlags[1] & 0x800) &&
-                !(procSpell->SpellFamilyFlags[0] & 0x800000))
+            if ((procSpell->SpellFamilyFlags[1] & 0x800) && !(procSpell->SpellFamilyFlags[0] & 0x800000))
                 return false;
 
             // Judgements only trigger seal procs with JotJ
@@ -1942,12 +1942,39 @@ class spell_pal_seal_of_vengeance_aura : public AuraScript
     {
         PreventDefaultAction();
 
-        if (!(eventInfo.GetTypeMask() & PROC_FLAG_DONE_MELEE_AUTO_ATTACK))
+        bool allowedProc = false;
+
+        // 1. Autoattacks
+        if (eventInfo.GetTypeMask() & PROC_FLAG_DONE_MELEE_AUTO_ATTACK)
         {
-            SpellInfo const* spellInfo = eventInfo.GetSpellInfo();
-            if (!spellInfo || spellInfo->SpellIconID != PALADIN_ICON_HAMMER_OF_THE_RIGHTEOUS)
-                return;
+            allowedProc = true;
         }
+        // 2. Damage-Spells
+        else if (SpellInfo const* spellInfo = eventInfo.GetSpellInfo())
+        {
+            if (spellInfo->SpellIconID == PALADIN_ICON_HAMMER_OF_THE_RIGHTEOUS)
+            {
+                allowedProc = true;
+            }
+            // Holy Shock Damage (Mask 0, Bit 21 -> 0x00200000)
+            else if (spellInfo->SpellFamilyFlags[0] & 0x00200000)
+            {
+                allowedProc = true;
+            }
+            // Exorcism (Mask 1, Bit 1 -> 0x00000002)
+            else if (spellInfo->SpellFamilyFlags[1] & 0x00000002)
+            {
+                allowedProc = true;
+            }
+            // Holy Wrath (Mask 1, Bit 21 -> 0x00200000)
+            else if (spellInfo->SpellFamilyFlags[1] & 0x00200000)
+            {
+                allowedProc = true;
+            }
+        }
+
+        if (!allowedProc)
+            return;
 
         uint32 dotSpell = _isVengeance ? SPELL_PALADIN_HOLY_VENGEANCE : SPELL_PALADIN_BLOOD_CORRUPTION;
         eventInfo.GetActor()->CastSpell(eventInfo.GetActionTarget(), dotSpell, true, nullptr, aurEff);
@@ -1999,6 +2026,9 @@ class spell_pal_illumination : public AuraScript
     {
         return ValidateSpellInfo({
             SPELL_PALADIN_HOLY_SHOCK_R1_HEALING,
+            SPELL_PALADIN_HOLY_SHOCK_R1_DAMAGE,
+            SPELL_PALADIN_EXORCISM_R1,
+            SPELL_PALADIN_HOLY_WRATH_R1,
             SPELL_PALADIN_ILLUMINATION_ENERGIZE,
             SPELL_PALADIN_HOLY_SHOCK_R1
         });
@@ -2008,25 +2038,55 @@ class spell_pal_illumination : public AuraScript
     {
         PreventDefaultAction();
 
-        // this script is valid only for the Holy Shock procs of illumination
+        SpellInfo const* originalSpell = nullptr;
+
+        // Check Holy Shock Heal
         if (eventInfo.GetHealInfo() && eventInfo.GetHealInfo()->GetSpellInfo())
         {
-            SpellInfo const* originalSpell = nullptr;
-
-            // if proc comes from the Holy Shock heal, need to get mana cost of original spell - else it's the original heal itself
-            if (eventInfo.GetHealInfo()->GetSpellInfo()->SpellFamilyFlags[1] & 0x00010000)
-                originalSpell = sSpellMgr->GetSpellInfo(sSpellMgr->GetSpellWithRank(SPELL_PALADIN_HOLY_SHOCK_R1, eventInfo.GetHealInfo()->GetSpellInfo()->GetRank()));
+            SpellInfo const* healSpell = eventInfo.GetHealInfo()->GetSpellInfo();
+            
+            // Holy Shock HEAL Mask 1 (Bit 16 -> 0x00010000)
+            if (healSpell->SpellFamilyFlags[1] & 0x00010000)
+                originalSpell = sSpellMgr->GetSpellInfo(sSpellMgr->GetSpellWithRank(SPELL_PALADIN_HOLY_SHOCK_R1, healSpell->GetRank()));
             else
-                originalSpell = eventInfo.GetHealInfo()->GetSpellInfo();
-
-            if (originalSpell && aurEff->GetSpellInfo())
+                originalSpell = healSpell;
+        }
+        // 2. Damage Spells
+        else if (eventInfo.GetDamageInfo() && eventInfo.GetDamageInfo()->GetSpellInfo())
+        {
+            SpellInfo const* damageSpell = eventInfo.GetDamageInfo()->GetSpellInfo();
+            
+            // Holy Shock DAMAGE Mask 0 (Bit 21 -> 0x00200000)
+            if (damageSpell->SpellFamilyFlags[0] & 0x00200000)
             {
-                Unit* target = eventInfo.GetActor(); // Paladin is the target of the energize
-                int32 baseCost = originalSpell->ManaCost + int32(CalculatePct(target->GetCreateMana(), originalSpell->ManaCostPercentage));
-                int32 bp = CalculatePct(baseCost, aurEff->GetSpellInfo()->Effects[EFFECT_1].CalcValue());
-                target->CastCustomSpell(target, SPELL_PALADIN_ILLUMINATION_ENERGIZE, &bp, nullptr, nullptr, true, nullptr, aurEff);
+                originalSpell = sSpellMgr->GetSpellInfo(sSpellMgr->GetSpellWithRank(SPELL_PALADIN_HOLY_SHOCK_R1, damageSpell->GetRank()));
+            }
+            // Exorcism Mask 1 (Bit 1 -> 0x00000002)
+            else if (damageSpell->SpellFamilyFlags[1] & 0x00000002)
+            {
+                originalSpell = sSpellMgr->GetSpellInfo(sSpellMgr->GetSpellWithRank(SPELL_PALADIN_EXORCISM_R1, damageSpell->GetRank()));
+            }
+            // Holy Wrath Mask 1 (Bit 21 -> 0x00200000)
+            else if (damageSpell->SpellFamilyFlags[1] & 0x00200000)
+            {
+                originalSpell = sSpellMgr->GetSpellInfo(sSpellMgr->GetSpellWithRank(SPELL_PALADIN_HOLY_WRATH_R1, damageSpell->GetRank()));
+            }
+            else
+            {
+                originalSpell = damageSpell;
             }
         }
+
+        if (!originalSpell || !aurEff->GetSpellInfo())
+            return;
+
+        Unit* target = eventInfo.GetActor();
+
+        // Calculate Mana Return
+        int32 baseCost = originalSpell->ManaCost + int32(CalculatePct(target->GetCreateMana(), originalSpell->ManaCostPercentage));
+        int32 bp = CalculatePct(baseCost, aurEff->GetSpellInfo()->Effects[EFFECT_1].CalcValue());
+        
+        target->CastCustomSpell(target, SPELL_PALADIN_ILLUMINATION_ENERGIZE, &bp, nullptr, nullptr, true, nullptr, aurEff);
     }
 
     void Register() override
