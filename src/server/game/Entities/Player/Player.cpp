@@ -5378,6 +5378,7 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
             // Custom-Hook for OnPlayerLearnedSkillsChange Event
             sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
         }
+        sScriptMgr->OnPlayerSetSkill(this, id, currVal, maxVal, step, newVal);
     }
     else if (newVal)                                        //add
     {
@@ -5424,10 +5425,8 @@ void Player::SetSkill(uint16 id, uint16 step, uint16 newVal, uint16 maxVal)
                 learnSkillRewardedSpells(id, newVal);
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_REACH_SKILL_LEVEL, id);
                 UpdateAchievementCriteria(ACHIEVEMENT_CRITERIA_TYPE_LEARN_SKILL_LEVEL, id);
-				
-                // Custom-Hook for OnPlayerLearnedSkillsChange Event
-                sScriptMgr->OnPlayerLearnedSkillsChange(this,id);
-            
+
+                sScriptMgr->OnPlayerSetSkill(this, id, currVal, maxVal, step, newVal);
                 return;
             }
     }
@@ -13113,6 +13112,11 @@ PartyResult Player::CanUninviteFromGroup(ObjectGuid targetPlayerGUID) const
 
         if (InBattleground())
             return ERR_INVITE_RESTRICTED;
+
+        // BF raids are owned by the Battlefield system; leaders/assistants must not
+        // be able to kick members (would drop their team assignment mid-battle).
+        if (grp->isBFGroup())
+            return ERR_NOT_LEADER;
     }
 
     return ERR_PARTY_RESULT_OK;
