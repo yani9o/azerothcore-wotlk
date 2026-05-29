@@ -46,7 +46,7 @@ public:
 
     void OnPlayerLogin(Player* player) override { CheckTrackingResource(player); }
 	
-    void OnPlayerLearnedSkillsChange(Player* player, uint32 skillId) override
+	void ScriptMgr::OnPlayerSetSkill(Player* player, uint32 skillId, uint32 value, uint32 max, uint32 step, uint32 newValue) override
     {
         if (skillId == 182 || skillId == 186)
             CheckTrackingResource(player);
