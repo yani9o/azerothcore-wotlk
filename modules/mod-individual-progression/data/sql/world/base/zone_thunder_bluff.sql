@@ -1,4 +1,4 @@
-/*UPDATE `creature_template` SET `subname` = 'Expert Blacksmith'        WHERE `entry` = 2998;  -- Karn Stonehoof <Expert Blacksmith>
+UPDATE `creature_template` SET `subname` = 'Expert Blacksmith'        WHERE `entry` = 2998;  -- Karn Stonehoof <Expert Blacksmith>
 UPDATE `creature_template` SET `subname` = 'Expert Tailor'            WHERE `entry` = 3004;  -- Tepa <Expert Tailor>
 UPDATE `creature_template` SET `subname` = 'Artisan Leatherworker'    WHERE `entry` = 3007;  -- Una <Artisan Leatherworker>
 UPDATE `creature_template` SET `subname` = 'Journeyman Leatherworker' WHERE `entry` = 3008;  -- Mak <Journeyman Leatherworker>
@@ -21,7 +21,7 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4207, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'),  -- Tarn <Expert Leatherworker>
 (15, 4242, 0, 7, 165, 125, 'Show menu if leatherworking is 125 or higher'), -- Una <Artisan Leatherworker>
 (15, 4351, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');       -- Tepa <Expert Tailor>
-*/
+
 
 /* NPC Thrumn - Remove non-Vanilla Tabards */
 DELETE FROM `npc_vendor` WHERE `entry`= 5189 AND `item` IN (15197, 15199, 19031, 19505, 24004, 31773, 31775, 31776, 31777, 31778, 31779, 31780, 31781, 31804, 32445, 32828, 35221);

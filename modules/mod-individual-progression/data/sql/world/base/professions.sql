@@ -99,7 +99,7 @@ INSERT INTO npc_vendor (entry, slot, item) VALUES
 (18990, 0, 21993),
 (18991, 0, 21992),
 (18991, 0, 21993);
-/*
+
 UPDATE `creature_template` SET `subname` = 'Journeyman Alchemist'     WHERE `entry` IN (16161);
 UPDATE `creature_template` SET `subname` = 'Expert Alchemist'         WHERE `entry` IN (16642, 16723);
 UPDATE `creature_template` SET `subname` = 'Journeyman Blacksmith'    WHERE `entry` IN (15400);
@@ -112,7 +112,7 @@ UPDATE `creature_template` SET `subname` = 'Journeyman Leatherworker' WHERE `ent
 UPDATE `creature_template` SET `subname` = 'Expert Leatherworker'     WHERE `entry` IN (16688, 16728);
 UPDATE `creature_template` SET `subname` = 'Journeyman Tailor'        WHERE `entry` IN (16366, 17487);
 UPDATE `creature_template` SET `subname` = 'Expert Tailor'            WHERE `entry` IN (16640, 16729);
-*/
+
 -- Delete added riding trainers
 DELETE FROM creature WHERE `id1` IN (35093, 35100);
 DELETE FROM creature_addon WHERE `guid` IN (88165, 88166);
@@ -246,49 +246,49 @@ INSERT INTO `npc_vendor` (`entry`, `slot`, `item`, `maxcount`, `incrtime`, `Exte
 
 
 -- NEW!
-/*
+
 SET @TRAINER_ID   := 600;
 
 DELETE FROM `trainer` WHERE `Id` BETWEEN @TRAINER_ID+11 AND @TRAINER_ID+51;
 INSERT INTO `trainer` (`Id`, `Type`, `Requirement`, `Greeting`, `VerifiedBuild`) VALUES 
 --
-(@TRAINER_ID+11, 2, 0, 'With alchemy you can turn found herbs into healing and other types of potions.', 0),
-(@TRAINER_ID+12, 2, 0, 'With alchemy you can turn found herbs into healing and other types of potions.', 0),
-(@TRAINER_ID+13, 2, 0, 'With alchemy you can turn found herbs into healing and other types of potions.', 0),
+(@TRAINER_ID+11, 2, 0, 'Mit Alchemie könnt Ihr gefundene Kräuter zu Tränken verarbeiten.', 0),
+(@TRAINER_ID+12, 2, 0, 'Mit Alchemie könnt Ihr gefundene Kräuter zu Tränken verarbeiten.', 0),
+(@TRAINER_ID+13, 2, 0, 'Mit Alchemie könnt Ihr gefundene Kräuter zu Tränken verarbeiten.', 0),
 --
-(@TRAINER_ID+16, 2, 0, 'Care to learn how to turn the ore that you find into weapons and metal armor?', 0),
-(@TRAINER_ID+17, 2, 0, 'Care to learn how to turn the ore that you find into weapons and metal armor?', 0),
-(@TRAINER_ID+18, 2, 0, 'Care to learn how to turn the ore that you find into weapons and metal armor?', 0),
+(@TRAINER_ID+16, 2, 0, 'Möchtet Ihr lernen, wie man gefundenes Erz zu Waffen und Rüstungen verarbeitet?', 0),
+(@TRAINER_ID+17, 2, 0, 'Möchtet Ihr lernen, wie man gefundenes Erz zu Waffen und Rüstungen verarbeitet?', 0),
+(@TRAINER_ID+18, 2, 0, 'Möchtet Ihr lernen, wie man gefundenes Erz zu Waffen und Rüstungen verarbeitet?', 0),
 --
-(@TRAINER_ID+21, 2, 0, 'Enchanting is the art of improving existing items through magic.', 0),
-(@TRAINER_ID+22, 2, 0, 'Enchanting is the art of improving existing items through magic.', 0),
-(@TRAINER_ID+23, 2, 0, 'Enchanting is the art of improving existing items through magic.', 0),
+(@TRAINER_ID+21, 2, 0, 'Verzauberkunst ist die Kunst, bereits existierende Gegenstände durch Magie zu verbessern.', 0),
+(@TRAINER_ID+22, 2, 0, 'Verzauberkunst ist die Kunst, bereits existierende Gegenstände durch Magie zu verbessern.', 0),
+(@TRAINER_ID+23, 2, 0, 'Verzauberkunst ist die Kunst, bereits existierende Gegenstände durch Magie zu verbessern.', 0),
 --
-(@TRAINER_ID+26, 2, 0, 'Engineering is very simple once you grasp the basics.', 0),
-(@TRAINER_ID+27, 2, 0, 'Engineering is very simple once you grasp the basics.', 0),
-(@TRAINER_ID+28, 2, 0, 'Engineering is very simple once you grasp the basics.', 0),
+(@TRAINER_ID+26, 2, 0, 'Ingenieurskunst ist ganz einfach, wenn man erst einmal die Grundlagen verstanden hat.', 0),
+(@TRAINER_ID+27, 2, 0, 'Ingenieurskunst ist ganz einfach, wenn man erst einmal die Grundlagen verstanden hat.', 0),
+(@TRAINER_ID+28, 2, 0, 'Ingenieurskunst ist ganz einfach, wenn man erst einmal die Grundlagen verstanden hat.', 0),
 --
-(@TRAINER_ID+31, 2, 0, 'Greetings!  Can I teach you how to turn beast hides into armor?', 0),
-(@TRAINER_ID+32, 2, 0, 'Greetings!  Can I teach you how to turn beast hides into armor?', 0),
-(@TRAINER_ID+33, 2, 0, 'Greetings!  Can I teach you how to turn beast hides into armor?', 0),
+(@TRAINER_ID+31, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Tierhäute zu Rüstungen verarbeitet?', 0),
+(@TRAINER_ID+32, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Tierhäute zu Rüstungen verarbeitet?', 0),
+(@TRAINER_ID+33, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Tierhäute zu Rüstungen verarbeitet?', 0),
 --
-(@TRAINER_ID+36, 2, 0, 'Greetings!  Can I teach you how to turn found cloth into cloth armor?', 0),
-(@TRAINER_ID+37, 2, 0, 'Greetings!  Can I teach you how to turn found cloth into cloth armor?', 0),
-(@TRAINER_ID+38, 2, 0, 'Greetings!  Can I teach you how to turn found cloth into cloth armor?', 0),
+(@TRAINER_ID+36, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Stoffe zu Rüstungen verarbeitet?', 0),
+(@TRAINER_ID+37, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Stoffe zu Rüstungen verarbeitet?', 0),
+(@TRAINER_ID+38, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Stoffe zu Rüstungen verarbeitet?', 0),
 --
-(@TRAINER_ID+41, 2, 0, 'Searching for herbs requires both knowledge and instinct.', 0),
-(@TRAINER_ID+42, 2, 0, 'You have not lived until you have dug deep into the earth.', 0),
-(@TRAINER_ID+43, 2, 0, 'It requires a steady hand to remove the leather from a slain beast.', 0),
+(@TRAINER_ID+41, 2, 0, 'Das Suchen nach Kräutern erfordert sowohl Wissen als auch Instinkt.', 0),
+(@TRAINER_ID+42, 2, 0, 'Ihr habt nicht gelebt, bevor Ihr nicht tief in der Erde gegraben habt.', 0),
+(@TRAINER_ID+43, 2, 0, 'Es erfordert eine ruhige Hand, um das Leder von einem erlegten Tier zu entfernen.', 0),
 --
-(@TRAINER_ID+44, 2, 0, 'Can I teach you how to turn the meat you find on beasts into a feast?', 0),
-(@TRAINER_ID+45, 2, 0, 'Here, let me show you how to bind those wounds....', 0),
-(@TRAINER_ID+46, 2, 0, 'Here, let me show you how to bind those wounds....', 0),
-(@TRAINER_ID+47, 2, 0, 'I can teach you how to use a fishing pole to catch fish.', 0),
+(@TRAINER_ID+44, 2, 0, 'Kann ich Euch beibringen, wie man das Fleisch von Tieren zu einem Festmahl verarbeitet?', 0),
+(@TRAINER_ID+45, 2, 0, 'Hier, lasst mich Euch zeigen, wie man diese Wunden verbindet...', 0),
+(@TRAINER_ID+46, 2, 0, 'Hier, lasst mich Euch zeigen, wie man diese Wunden verbindet...', 0),
+(@TRAINER_ID+47, 2, 0, 'Ich kann Euch beibringen, wie man eine Angel benutzt, um Fische zu fangen.', 0),
 --
-(@TRAINER_ID+51, 2, 0, 'Greetings!  Can I teach you how to turn beast hides into armor?', 0);
+(@TRAINER_ID+51, 2, 0, 'Seid gegrüsst! Kann ich Euch beibringen, wie man Tierhäute zu Rüstungen verarbeitet?', 0);
 
 /* Crafting Professions */
-/*
+
 DELETE FROM `trainer_spell` WHERE `TrainerId` IN (@TRAINER_ID+11, @TRAINER_ID+12, @TRAINER_ID+13);
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`) VALUES
 -- Journeyman Alchemist
@@ -1139,7 +1139,7 @@ INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
 
 
 /* Gathering Professions */
-/*
+
 -- Herbalism
 DELETE FROM `trainer_spell` WHERE `TrainerId` = @TRAINER_ID+41;
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`) VALUES
@@ -1199,7 +1199,7 @@ INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
 
 
 /* Secondary Skills */
-/*
+
 -- Cooking
 DELETE FROM `trainer_spell` WHERE `TrainerId` = @TRAINER_ID+44;
 INSERT INTO `trainer_spell` (`TrainerId`, `SpellID`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqLevel`) VALUES
@@ -1320,7 +1320,7 @@ INSERT INTO `creature_default_trainer` (`CreatureId`, `TrainerId`) VALUES
 
 
 /* Gossip Menus */
-/*
+
 DELETE FROM `gossip_menu_option` WHERE `MenuID` IN 
 (2742, 2745, 2747, 2748, 2750, 2761, 2782, 4110, 4112, 4114, 4116, 4118, 4119, 4121, 4125, 4128, 4130, 4137, 4139, 4143, 4144, 4147, 4148, 
 4151, 4153, 4154, 4155, 4157, 4158, 4159, 4160, 4161, 4165, 4169, 4173, 4181, 4182, 4183, 4187, 4188, 4204, 4207, 4241, 4242, 4262, 4264, 4265, 4266, 4268, 4269, 4344, 4351, 4352);
@@ -1379,4 +1379,3 @@ INSERT INTO `gossip_menu_option` (`MenuID`, `OptionID`, `OptionIcon`, `OptionTex
 (4344, 0, 3, 'Train me.', 3266, 5, 16), -- Sellandus <Expert Tailor>
 (4351, 0, 3, 'Train me.', 3266, 5, 16), -- Tepa <Expert Tailor>
 (4352, 0, 3, 'Train me.', 3266, 5, 16); -- Rhiannon Davis <Expert Tailor>
-*/

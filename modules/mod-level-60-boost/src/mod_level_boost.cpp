@@ -164,6 +164,10 @@ void LevelBoost::DestroyGear(Player* player)
 
 	for (uint8 i = EQUIPMENT_SLOT_START; i < EQUIPMENT_SLOT_END; ++i)
 	{
+		if (i == 3)
+		{
+			continue;
+		}
 		if (Item* item = player->GetItemByPos(INVENTORY_SLOT_BAG_0, i))
 		{
 			player->DestroyItem(INVENTORY_SLOT_BAG_0, i, true);

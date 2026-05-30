@@ -1,4 +1,3 @@
-/*
 UPDATE `creature_template` SET `subname` = 'Journeyman Alchemist'     WHERE `entry` = 11041; -- Milla Fairancora <Journeyman Alchemist>
 UPDATE `creature_template` SET `subname` = 'Expert Alchemist'         WHERE `entry` = 11042; -- Sylvanna Forestmoon <Expert Alchemist>
 UPDATE `creature_template` SET `subname` = 'Journeyman Tailor'        WHERE `entry` = 11050; -- Trianna <Journeyman Tailor>
@@ -17,7 +16,7 @@ INSERT INTO `conditions` (`SourceTypeOrReferenceId`, `SourceGroup`, `SourceEntry
 (15, 4204, 0, 7, 165, 50,  'Show menu if leatherworking is 50 or higher'),  -- Faldron <Expert Leatherworker>
 (15, 4241, 0, 7, 165, 125, 'Show menu if leatherworking is 125 or higher'), -- Telonis <Artisan Leatherworker>
 (15, 4349, 0, 7, 197, 50,  'Show menu if tailoring is 50 or higher');       -- Me'lynn <Expert Tailor>
-*/
+
 -- Batllemasters
 DELETE FROM `creature` WHERE `id1` IN (907, 2302, 5118);
 INSERT INTO `creature` (`guid`, `id1`, `map`, `position_x`, `position_y`, `position_z`, `orientation`, `spawntimesecs`) VALUES

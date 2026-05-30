@@ -293,6 +293,18 @@ UPDATE `trainer_spell` SET `ReqLevel` = 60, `MoneyCost` = 1000000 WHERE `SpellId
 -- Delete all spells above 60
 DELETE FROM `trainer_spell` WHERE `ReqLevel` > 60;
 
+-- ReAdd new leveling recipes to classic profession trainers
+REPLACE INTO `trainer_spell` (`TrainerId`, `SpellId`, `MoneyCost`, `ReqSkillLine`, `ReqSkillRank`, `ReqAbility1`, `ReqAbility2`, `ReqAbility3`, `ReqLevel`, `VerifiedBuild`) VALUES 
+(617, 34979, 600, 164, 100, 0, 0, 0, 0, 0),
+(618, 34979, 600, 164, 100, 0, 0, 0, 0, 0),
+(618, 34981, 7500, 164, 200, 0, 0, 0, 0, 0),
+(621, 7428, 100, 333, 20, 0, 0, 0, 0, 0),
+(622, 7428, 100, 333, 20, 0, 0, 0, 0, 0),
+(623, 7428, 100, 333, 20, 0, 0, 0, 0, 0),
+(623, 63746, 5000, 333, 225, 0, 0, 0, 0, 0),
+(637, 63742, 750, 197, 125, 0, 0, 0, 0, 0),
+(638, 63742, 750, 197, 125, 0, 0, 0, 0, 0);
+
 
 
 -- ##########################################
