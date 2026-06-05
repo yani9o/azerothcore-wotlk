@@ -94,7 +94,9 @@ InstanceSave* InstanceSaveMgr::AddInstanceSave(uint32 mapId, uint32 instanceId, 
     }
     else
     {
-        resetTime = GameTime::GetGameTime().count() + static_cast<long long>(3) * DAY; // normals expire after 3 days even if someone is still bound to them, cleared on startup
+		// Custom: Get DungeonKeepAlive from Config, if not available use default of three days
+		uint32 DungeonKeepAlive = sConfigMgr->GetOption<uint32>("Instance.DungeonKeepAlive", 259200);
+		resetTime = GameTime::GetGameTime().count() + static_cast<long long>(DungeonKeepAlive);
         extendedResetTime = 0;
     }
     InstanceSave* save = new InstanceSave(mapId, instanceId, difficulty, resetTime, extendedResetTime);

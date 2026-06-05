@@ -1080,6 +1080,20 @@ void Map::UnloadAll()
     _corpsesByGrid.clear();
     _corpsesByPlayer.clear();
     _corpseBones.clear();
+	
+    // CUSTOM: Delete normal dungeon save from DB when map unloads from RAM
+    if (IsDungeon() && GetDifficulty() == DUNGEON_DIFFICULTY_NORMAL)
+    {
+		// ONLY if UnLoadKeepDungeonID is disabled (0)
+        if (sConfigMgr->GetOption<uint32>("Instance.UnLoadKeepDungeonID", 0) == 0)
+        {
+            if (InstanceSave* save = sInstanceSaveMgr->GetInstanceSave(GetInstanceId()))
+            {
+                sInstanceSaveMgr->UnbindAllFor(save); // Unbind Player
+                sInstanceSaveMgr->DeleteInstanceSaveIfNeeded(save, true); // Delete ID
+            }
+        }
+    }
 }
 
 std::shared_ptr<GridTerrainData> Map::GetGridTerrainDataSharedPtr(GridCoord const& gridCoord)

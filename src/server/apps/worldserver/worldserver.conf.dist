@@ -3337,6 +3337,23 @@ Rate.InstanceResetTime = 1
 Instance.UnloadDelay = 1800000
 
 #
+#    Instance.UnLoadKeepDungeonID
+#        Description: If normal 5-player IDs should be kept during map unload or server shutdown.
+#        Default:     1 - (Keep normal 5-player IDs)
+#					  0 - (Delete normal 5-player IDs after UnloadDelay or Server Shutdown)
+
+Instance.UnLoadKeepDungeonID = 1
+
+#
+#    Instance.DungeonKeepAlive
+#        Description: Time (in seconds) after which the ID of a normal 5-player instance
+#                     completely expires and gets deleted from the database at server startup.
+#        Default:     259200 - (3 days)
+#					  0 - (all normal 5-player IDs expire at server startup, not recommended)
+
+Instance.DungeonKeepAlive = 259200
+
+#
 #   AccountInstancesPerHour
 #        Description: Controls the max amount of different instances player can enter within hour
 #        Default:     5
