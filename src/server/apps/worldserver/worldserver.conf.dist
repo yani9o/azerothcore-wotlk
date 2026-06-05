@@ -3340,7 +3340,7 @@ Instance.UnloadDelay = 1800000
 #    Instance.UnLoadKeepDungeonID
 #        Description: If normal 5-player IDs should be kept during map unload or server shutdown.
 #        Default:     1 - (Keep normal 5-player IDs)
-#					  0 - (Delete normal 5-player IDs after UnloadDelay or Server Shutdown)
+#					  0 - (Delete loaded normal 5-player IDs after UnloadDelay or Server Shutdown)
 
 Instance.UnLoadKeepDungeonID = 1
 
