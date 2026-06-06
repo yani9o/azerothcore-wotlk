@@ -811,6 +811,44 @@ void WorldSession::HandlePlayerLoginFromDB(LoginQueryHolder const& holder)
         return;
     }
 
+    // Custom: Correct multi-dungeon wing entrances
+    uint32 loginMapId = pCurrChar->GetMapId();
+    MapEntry const* mapEntry = sMapStore.LookupEntry(loginMapId);
+    if (mapEntry && mapEntry->Instanceable())
+    {
+        // 1. Fetch coordinates and the instance ID from the database directly
+        QueryResult charResult = CharacterDatabase.Query("SELECT position_x, position_y, position_z, instance_id FROM characters WHERE guid = " + std::to_string(pCurrChar->GetGUID().GetCounter()));
+        if (charResult)
+        {
+            Field* charFields = charResult->Fetch();
+            float savedX = charFields[0].Get<float>();
+            float savedY = charFields[1].Get<float>();
+            float savedZ = charFields[2].Get<float>();
+            uint32 savedInstanceId = charFields[3].Get<uint32>();
+
+            // 2. SAFEGUARD: Only interfere if the instance was wiped/deleted (instance_id == 0)
+            if (savedInstanceId == 0)
+            {
+                // 3. Find the closest multi-dungeon wing entrance matching those saved coordinates
+                QueryResult loginResult = WorldDatabase.Query("SELECT target_position_x, target_position_y, target_position_z, target_orientation FROM areatrigger_teleport WHERE target_map = " + std::to_string(loginMapId) + 
+                    " ORDER BY (POW(target_position_x - " + std::to_string(savedX) + ", 2) + POW(target_position_y - " + std::to_string(savedY) + ", 2) + POW(target_position_z - " + std::to_string(savedZ) + ", 2)) ASC LIMIT 1");
+                
+                if (loginResult)
+                {
+                    Field* fields = loginResult->Fetch();
+                    float x = fields[0].Get<float>();
+                    float y = fields[1].Get<float>();
+                    float z = fields[2].Get<float>();
+                    float o = fields[3].Get<float>();
+
+                    // Silently relocate the player object in memory before map bindings occur
+                    pCurrChar->Relocate(x, y, z, o);
+                }
+            }
+        }
+    }
+
+    // Ab hier läuft dein originaler Code unangetastet weiter:
     pCurrChar->GetMotionMaster()->Initialize();
     pCurrChar->SendDungeonDifficulty(false);
 

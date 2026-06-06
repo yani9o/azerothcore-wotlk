@@ -8,6 +8,8 @@
 #include "BattlefieldMgr.h"
 #include "GameGraveyard.h"
 #include "easy_respawn_mgr.h"
+#include "LFGMgr.h"
+#include "Group.h"
 
 EasyRespawnMgr::EasyRespawnMgr()
 {
@@ -95,6 +97,7 @@ bool EasyRespawnMgr::RespawnAndTeleport(Player* player) const
     Map* map = player->GetMap();
     bool resurrect = false;
 
+    // 1. Keep configuration override functionality intact
     const WorldLocation* overrideLocation = ChooseOverrideLocation(map->GetId());
     if (overrideLocation != nullptr)
     {
@@ -105,45 +108,74 @@ bool EasyRespawnMgr::RespawnAndTeleport(Player* player) const
     {
         if (map->IsDungeon())
         {
-            AreaTriggerTeleport const* chosenTrigger = nullptr;
-            if (instanceRespawnLocation == RESPAWN_INSIDE)
-                chosenTrigger = sObjectMgr->GetMapEntranceTrigger(map->GetId());
+            bool coordsFound = false;
+            float x = 0.0f, y = 0.0f, z = 0.0f, o = 0.0f;
+
+            // 2. PATH A: LFG Logic (Executes if the player is in an active LFG group)
+            if (player->GetGroup())
+            {
+                uint32 dungeonId = sLFGMgr->GetDungeon(player->GetGroup()->GetGUID());
+                if (dungeonId > 0)
+                {
+                    QueryResult lfgResult = WorldDatabase.Query("SELECT position_x, position_y, position_z, orientation FROM lfg_dungeon_template WHERE dungeonId = " + std::to_string(dungeonId));
+                    if (lfgResult)
+                    {
+                        Field* fields = lfgResult->Fetch();
+                        x = fields[0].Get<float>();
+                        y = fields[1].Get<float>();
+                        z = fields[2].Get<float>();
+                        o = fields[3].Get<float>();
+                        coordsFound = true;
+                    }
+                }
+            }
+
+            // 3. PATH B: Walk-In Logic (Fallback proximity check if not in LFG or LFG data is missing)
+            if (!coordsFound)
+            {
+                QueryResult walkInResult = WorldDatabase.Query("SELECT target_position_x, target_position_y, target_position_z, target_orientation FROM areatrigger_teleport WHERE target_map = " + std::to_string(map->GetId()) + 
+                    " ORDER BY (POW(target_position_x - " + std::to_string(player->GetPositionX()) + ", 2) + POW(target_position_y - " + std::to_string(player->GetPositionY()) + ", 2) + POW(target_position_z - " + std::to_string(player->GetPositionZ()) + ", 2)) ASC LIMIT 1");
+                
+                if (walkInResult)
+                {
+                    Field* fields = walkInResult->Fetch();
+                    x = fields[0].Get<float>();
+                    y = fields[1].Get<float>();
+                    z = fields[2].Get<float>();
+                    o = fields[3].Get<float>();
+                    coordsFound = true;
+                }
+            }
+
+            // 4. Execution: Teleport the dead player if coordinates were found via either path
+            if (coordsFound)
+            {
+                player->TeleportTo(map->GetId(), x, y, z, o);
+                resurrect = true;
+            }
             else
             {
-                chosenTrigger = sObjectMgr->GetGoBackTrigger(map->GetId());
-                if (chosenTrigger == nullptr)
+                // Absolute fallback to default module behavior if both database lookups fail
+                AreaTriggerTeleport const* chosenTrigger = nullptr;
+                if (instanceRespawnLocation == RESPAWN_INSIDE)
                     chosenTrigger = sObjectMgr->GetMapEntranceTrigger(map->GetId());
-            }
-
-            if (chosenTrigger != nullptr)
-            {
-                player->TeleportTo(chosenTrigger->target_mapId, chosenTrigger->target_X, chosenTrigger->target_Y, chosenTrigger->target_Z, chosenTrigger->target_Orientation);
-                resurrect = true;
-            }
-        }
-        else
-        {
-            if (player->GetPositionZ() >= map->GetMinHeight(player->GetPositionX(), player->GetPositionY()))
-            {
-                if (openWorldRespawnLocation == RESPAWN_AT_GRAVEYARD)
+                else
                 {
-                    GraveyardStruct const* closestGrave = sGraveyard->GetClosestGraveyard(player, player->GetTeamId());
-                    if (closestGrave != nullptr)
-                        player->TeleportTo(closestGrave->Map, closestGrave->x, closestGrave->y, closestGrave->z, player->GetOrientation());
-                    else
-                        player->TeleportTo(player->m_homebindMapId, player->m_homebindX, player->m_homebindY, player->m_homebindZ, player->GetOrientation());
-                }
-                else if (openWorldRespawnLocation == RESPAWN_AT_CORPSE)
-                {
-                    player->RemovePlayerFlag(PLAYER_FLAGS_IS_OUT_OF_BOUNDS);
-                    return true;
+                    chosenTrigger = sObjectMgr->GetGoBackTrigger(map->GetId());
+                    if (chosenTrigger == nullptr)
+                        chosenTrigger = sObjectMgr->GetMapEntranceTrigger(map->GetId());
                 }
 
-                resurrect = true;
+                if (chosenTrigger != nullptr)
+                {
+                    player->TeleportTo(chosenTrigger->target_mapId, chosenTrigger->target_X, chosenTrigger->target_Y, chosenTrigger->target_Z, chosenTrigger->target_Orientation);
+                    resurrect = true;
+                }
             }
         }
     }
 
+    // 5. Resurrect the player safely at their new destination coordinates
     if (resurrect)
         Resurrect(player);
 
