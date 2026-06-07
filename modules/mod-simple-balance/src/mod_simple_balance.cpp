@@ -15,6 +15,7 @@ namespace SimpleBalance
     bool Enable = true;
     bool Announce = true;
 	bool NormalizeXP = true;
+	bool NormalizeMoney = true;
     float DungeonFactor = 0.5f;
     float Raid10Factor  = 0.5f;
 	float Raid20Factor  = 0.5f;
@@ -35,15 +36,16 @@ namespace SimpleBalance
 
     void LoadConfig()
     {
-        Enable        = sConfigMgr->GetOption<bool>("SimpleBalance.Enable", true);
-        Announce      = sConfigMgr->GetOption<bool>("SimpleBalance.Announce", true);
-		NormalizeXP   = sConfigMgr->GetOption<bool>("SimpleBalance.NormalizeXP", true);
-        DungeonFactor = sConfigMgr->GetOption<float>("SimpleBalance.Dungeon", 0.5f);
-        Raid10Factor  = sConfigMgr->GetOption<float>("SimpleBalance.Raid10", 0.5f);
-        Raid20Factor  = sConfigMgr->GetOption<float>("SimpleBalance.Raid20", 0.5f);
-        Raid25Factor  = sConfigMgr->GetOption<float>("SimpleBalance.Raid25", 0.5f);
-        Raid40Factor  = sConfigMgr->GetOption<float>("SimpleBalance.Raid40", 0.5f);
-        GeneralFactor = sConfigMgr->GetOption<float>("SimpleBalance.General", 0.5f);
+        Enable         = sConfigMgr->GetOption<bool>("SimpleBalance.Enable", true);
+        Announce       = sConfigMgr->GetOption<bool>("SimpleBalance.Announce", true);
+		NormalizeXP    = sConfigMgr->GetOption<bool>("SimpleBalance.NormalizeXP", true);
+		NormalizeMoney = sConfigMgr->GetOption<bool>("SimpleBalance.NormalizeMoney", true);
+        DungeonFactor  = sConfigMgr->GetOption<float>("SimpleBalance.Dungeon", 0.5f);
+        Raid10Factor   = sConfigMgr->GetOption<float>("SimpleBalance.Raid10", 0.5f);
+        Raid20Factor   = sConfigMgr->GetOption<float>("SimpleBalance.Raid20", 0.5f);
+        Raid25Factor   = sConfigMgr->GetOption<float>("SimpleBalance.Raid25", 0.5f);
+        Raid40Factor   = sConfigMgr->GetOption<float>("SimpleBalance.Raid40", 0.5f);
+        GeneralFactor  = sConfigMgr->GetOption<float>("SimpleBalance.General", 0.5f);
 
         std::string token;
 
@@ -316,12 +318,12 @@ class SimpleBalance_PlayerScript : public PlayerScript
 public:
     SimpleBalance_PlayerScript() : PlayerScript("SimpleBalance_PlayerScript") {}
 
+    // Hook 1: Mob-Kill XP Scaling
     void OnPlayerGiveXP(Player* player, uint32& amount, Unit* victim, uint8 xpSource) override
     {
         if (!SimpleBalance::Enable || !SimpleBalance::NormalizeXP || !player || amount == 0)
             return;
 
-        // Only scale mob kill XP
         if (xpSource != XPSOURCE_KILL)
             return;
 
@@ -335,22 +337,42 @@ public:
         if (P >= M)
             return;
 		
-		float grpfactor = 1.0f;
+        float grpfactor = 1.0f;
 		
-		if ( M == 5 ) 
-		{
-			switch (P)
-			{
-				case 1: grpfactor = 1.68f; break;
-				case 2: grpfactor = 1.4f; break;
-				case 3: grpfactor = 1.200686106f; break;
-				case 4: grpfactor = 1.076923077f; break;
-				default: break;
-			}
-		}
+        if (M == 5) 
+        {
+            switch (P)
+            {
+                case 1: grpfactor = 1.68f; break;
+                case 2: grpfactor = 1.4f; break;
+                case 3: grpfactor = 1.200686106f; break;
+                case 4: grpfactor = 1.076923077f; break;
+                default: break;
+            }
+        }
 		
         float scale = float(P) / float(M);
         amount = uint32(amount * grpfactor * scale);
+    }
+
+    // Hook 2: Money Scaling
+    void OnPlayerBeforeLootMoney(Player* player, Loot* loot) override
+    {
+        if (!SimpleBalance::Enable || !SimpleBalance::NormalizeMoney || !player || !loot || loot->gold == 0)
+            return;
+
+        Map* map = player->GetMap();
+        if (!map || !map->IsDungeon())
+            return;
+
+        uint32 P = SimpleBalance::GetPlayersInInstance(map);
+        uint32 M = SimpleBalance::GetMaxPlayers(map);
+
+        if (P >= M || M > 5)
+            return;
+		
+        float scale = float(P) / float(M);
+        loot->gold = uint32(loot->gold * scale);
     }
 };
 

@@ -15,6 +15,9 @@ SimpleBalance.Announce = 0
 # Normalize Experience gain (as if the group was full)
 SimpleBalance.NormalizeXP = 1
 
+# Normalize Money gain (as if the group was full)
+SimpleBalance.NormalizeMoney = 1
+
 # Scaling Factors (0-1) - higher value = easier
 SimpleBalance.Dungeon = 0.25
 SimpleBalance.Raid10 = 0.30

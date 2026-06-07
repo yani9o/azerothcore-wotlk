@@ -213,14 +213,44 @@ class lfg_solo_GroupScript : public GroupScript
 public:
     lfg_solo_GroupScript() : GroupScript("lfg_solo_GroupScript") {}
 
-    void OnAddMember(Group* group, ObjectGuid guid) override
+	void UpdateLootMethod(Group* group)
 	{
-		if (sConfigMgr->GetOption<bool>("SoloLFG.Enable", true) && group->GetMembersCount() <= 1)
+		if (!sConfigMgr->GetOption<bool>("SoloLFG.Enable", true))
+			return;
+
+		if (!group->isLFGGroup())
+			return;
+
+		uint32 count = group->GetMembersCount();
+
+		if (count <= 1)
 		{
-			group->SetLootMethod(LootMethod::FREE_FOR_ALL);
-			group->SendUpdate();
+			if (group->GetLootMethod() != LootMethod::FREE_FOR_ALL)
+			{
+				group->SetLootMethod(LootMethod::FREE_FOR_ALL);
+				group->SendUpdate();
+			}
+		}
+		else
+		{
+			if (group->GetLootMethod() != LootMethod::GROUP_LOOT)
+			{
+				group->SetLootMethod(LootMethod::GROUP_LOOT);
+				group->SendUpdate();
+			}
 		}
 	}
+	
+	void OnAddMember(Group* group, ObjectGuid /*guid*/) override
+	{
+		UpdateLootMethod(group);
+	}
+	
+	void OnRemoveMember(Group* group, ObjectGuid /*guid*/, RemoveMethod /*method*/, ObjectGuid /*kicker*/, const char* /*reason*/) override
+	{
+		UpdateLootMethod(group);
+	}
+	
 };
 
 // ----------------- WORLDSCRIPT -----------------

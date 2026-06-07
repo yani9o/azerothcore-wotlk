@@ -101,7 +101,7 @@ INSERT INTO `item_template` (`entry`, `class`, `subclass`, `SoundOverrideSubclas
 (60002, 2, 8, -1, 'Verigan\'s Devotion', 20182, 3, 0, 0, 1, 37297, 7459, 17, 2, -1, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7, 5, 5, 12, 45, 12, 43, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3200, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 1, '', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 0, 0, 0, 0, '', 43, 0, 0, 0, 0, 12340),
 (25464, 2, 6, -1, 'Blood-Tempered Ranseur', 37410, 3, 0, 0, 1, 37297, 7459, 17, 2, -1, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 12, 7, 7, 5, 6, 43, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 106, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3400, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 1, '', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 0, 0, 0, 0, '', 43, 0, 0, 0, 0, 12340),
 (60003, 2, 8, -1, 'Blood-Tempered Greatsword', 39449, 3, 0, 0, 1, 37297, 7459, 17, 2, -1, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7, 5, 5, 12, 45, 12, 43, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65, 99, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3200, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 1, '', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 0, 0, 0, 0, '', 43, 0, 0, 0, 0, 12340),
-(60004, 2, 8, -1, 'Claymore of Zeal', 44893, 3, 0, 0, 1, 115000, 25000, 17, -1, -1, 44, 39, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7, 10, 5, 15, 45, 15, 21, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2800, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 1, '', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 125, 0, 0, 0, 0, '', 45, 0, 0, 0, 0, 12340);
+(60004, 2, 8, -1, 'Claymore of Zeal', 44893, 3, 0, 0, 1, 115000, 25000, 17, -1, -1, 44, 39, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 7, 10, 5, 15, 45, 20, 21, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 131, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2800, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 1, '', 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 125, 0, 0, 0, 0, '', 45, 0, 0, 0, 0, 12340);
 REPLACE INTO `item_template_locale` (`ID`, `locale`, `Name`, `VerifiedBuild`) VALUES
 (60002, 'deDE', 'Verigans Hingabe', 15050),
 (60003, 'deDE', 'Blutgehärtetes Großschwert', 15050),
@@ -115,11 +115,10 @@ UPDATE `quest_template_locale` SET `Title` = 'Blutgehärtet', `Details` = 'Bevor
 REPLACE INTO `creature_loot_template` (`Entry`, `Item`, `Reference`, `Chance`, `QuestRequired`, `LootMode`, `GroupId`, `MinCount`, `MaxCount`, `Comment`) VALUES
 (3976, 7726, 0, 30, 0, 1, 1, 1, 1, 'Scarlet Commander Mograine - Aegis of the Scarlet Commander'), -- Lower Shield's Droprate
 (3976, 60004, 0, 0, 0, 1, 1, 1, 1, 'Custom Drop: Scarlet Commander Mograine - Claymore of Zeal');
-
 -- Change Procs
 -- Illumination: Add Exorcism, Holy Wrath and HolyShock Damage
-UPDATE `spell_proc` SET `SpellFamilyMask0` = 3223322624, `SpellFamilyMask1` = 2162690, `Cooldown` = 100 WHERE `SpellId` = -20210;
-UPDATE `spell_proc_event` SET `SpellFamilyMask0` = 3223322624, `SpellFamilyMask1` = 2162690, `Cooldown` = 100 WHERE `entry` = -20210;
+UPDATE `spell_proc` SET `SpellFamilyMask0` = 3223322624, `SpellFamilyMask1` = 2162690, `Cooldown` = 10 WHERE `SpellId` = -20210;
+UPDATE `spell_proc_event` SET `SpellFamilyMask0` = 3223322624, `SpellFamilyMask1` = 2162690, `Cooldown` = 10 WHERE `entry` = -20210;
 -- Seal of Vengeance/Corruption
 UPDATE `spell_proc` SET `SpellFamilyMask0` = 2097152, `SpellFamilyMask1` = 2097154  WHERE `SpellId` IN (31801,53736);
 UPDATE `spell_proc_event` SET `SpellFamilyMask0` = 2097152, `SpellFamilyMask1` = 2097154  WHERE `entry` IN (31801,53736);
@@ -372,6 +371,9 @@ REPLACE INTO `page_text_locale` (`ID`, `locale`, `Text`, `VerifiedBuild`) VALUES
 REPLACE INTO `quest_offer_reward_locale` (`ID`, `locale`, `RewardText`, `VerifiedBuild`) VALUES
 (1654, "deDE", "Das ist wunderbar! Ihr habt alle Gegenstände bekommen.$B$BDamit müsste ich Euch problemlos eine grandiose Waffe schmieden können. Ích hatte seit langem Pläne dafür, aber bisher nie Gelegenheit gefunden, die Zutaten herbeizuschaffen. Danke, $C.$B$BEs tut gut, wieder den Hammer meines Vaters zu schwingen... und einen Edelstein aus Kor, ich dachte nicht, dass ich je selbst einen sehen würde.", 0);
 
+-- Cathedral and Armory Exit locations
+UPDATE `acore_world`.`areatrigger_teleport` SET `target_position_x`= 2911.16, `target_position_y`= -825.427, `target_position_z`= 160.328, `target_orientation`= 1.93931 WHERE `Name` = 'Scarlet Monastery - Cathedral (Exit)';
+UPDATE `acore_world`.`areatrigger_teleport` SET `target_position_x`= 2889.52, `target_position_y`= -834.768, `target_position_z`= 160.327, `target_orientation`= 1.95808 WHERE `Name` = 'Scarlet Monastery - Armory (Exit)';
 
 -- ##########################################
 -- ## Other                                 #
