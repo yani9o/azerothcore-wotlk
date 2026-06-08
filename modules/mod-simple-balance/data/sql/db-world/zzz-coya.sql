@@ -372,8 +372,8 @@ REPLACE INTO `quest_offer_reward_locale` (`ID`, `locale`, `RewardText`, `Verifie
 (1654, "deDE", "Das ist wunderbar! Ihr habt alle Gegenstände bekommen.$B$BDamit müsste ich Euch problemlos eine grandiose Waffe schmieden können. Ích hatte seit langem Pläne dafür, aber bisher nie Gelegenheit gefunden, die Zutaten herbeizuschaffen. Danke, $C.$B$BEs tut gut, wieder den Hammer meines Vaters zu schwingen... und einen Edelstein aus Kor, ich dachte nicht, dass ich je selbst einen sehen würde.", 0);
 
 -- Cathedral and Armory Exit locations
-UPDATE `acore_world`.`areatrigger_teleport` SET `target_position_x`= 2911.16, `target_position_y`= -825.427, `target_position_z`= 160.328, `target_orientation`= 1.93931 WHERE `Name` = 'Scarlet Monastery - Cathedral (Exit)';
-UPDATE `acore_world`.`areatrigger_teleport` SET `target_position_x`= 2889.52, `target_position_y`= -834.768, `target_position_z`= 160.327, `target_orientation`= 1.95808 WHERE `Name` = 'Scarlet Monastery - Armory (Exit)';
+UPDATE `areatrigger_teleport` SET `target_position_x`= 2911.16, `target_position_y`= -825.427, `target_position_z`= 160.328, `target_orientation`= 1.93931 WHERE `Name` = 'Scarlet Monastery - Cathedral (Exit)';
+UPDATE `areatrigger_teleport` SET `target_position_x`= 2889.52, `target_position_y`= -834.768, `target_position_z`= 160.327, `target_orientation`= 1.95808 WHERE `Name` = 'Scarlet Monastery - Armory (Exit)';
 
 -- ##########################################
 -- ## Other                                 #
